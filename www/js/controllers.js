@@ -1,6 +1,23 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+
+  .controller('DashCtrl', function($scope,$ionicModal,$rootScope) {
+
+    $rootScope.isset=function(){
+      var msg=sessionStorage.getItem("userName");
+      if(!msg){
+        return true;
+      }else{
+        return false;
+      }
+    }
+    $ionicModal.fromTemplateUrl('modal.html', function (modal) {
+      $scope.modal = modal;
+    }, {
+      animation: 'slide-in-up',
+      focusFirstInput: true
+    })
+  })
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -29,4 +46,8 @@ angular.module('starter.controllers', [])
 
 .controller('MineCtrl', function($scope){
 
-});
+})
+
+.controller('ModalCtrl', function ($scope,$rootScope,$http, $ionicPopup) {
+
+})
