@@ -44,7 +44,14 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('MineCtrl', function($scope){
+.controller('MineCtrl', function($scope,$ionicModal){
+
+  $ionicModal.fromTemplateUrl('modal.html', function (modal) {
+    $scope.modal = modal;
+  }, {
+    animation: 'slide-in-up',
+    focusFirstInput: true
+  })
 
 })
 
