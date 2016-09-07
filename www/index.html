@@ -79,22 +79,66 @@
     </ion-header-bar>
 
     <ion-content  class="positive">
-      <div class="padding" style="text-align: center">
-        <img src="img/logo.jpg" width="30%" style="border-radius:30px 30px 30px 30px;margin-top: 15px;">
-        <h4 style="font-family: 方正喵呜体;font-size:200%;">游世界  从这里起步</h4>
-        <h4>{{test}}</h4>
-        <div class="list" style="margin-top:10%;">
-          <label class="item item-input">
-            <span class="input-label">用户名</span>
-            <input ng-model="user.username" type="text">
-          </label>
-          <label class="item item-input" style="margin-top:5%">
-            <span class="input-label">密码</span>
-            <input ng-model="user.password" type="text">
-          </label>
-          <button class="button button-full button-positive" ng-click="createContact()" style="margin-top:10%;color:white;font-family: 微软雅黑">提交投诉表单</button>
+      <div class="list">
+
+        <div class="item item-divider ">
+          <h2 class="" style="font-size: 130%">投诉类型</h2>
         </div>
+
+        <div class="row">
+          <div class="choose col-33 col-offset-10" id='package_1' ng-click="choose(1)" style="margin-top:3%;" ng-class="{'choose2': isDeal1, 'choose': isntDeal1}">酒店住宿</div>
+          <div class="choose col-33 col-offset-10" id='package_2' ng-click="choose(2)" style="margin-top:3%" ng-class="{'choose2': isDeal2, 'choose': isntDeal2}">餐饮服务</div>
+        </div>
+        <div class="row">
+          <div class="choose col-33 col-offset-10" id='package_3' ng-click="choose(3)" style="margin-top:3%;margin-bottom:3%;" ng-class="{'choose2': isDeal3, 'choose': isntDeal3}">旅游景区</div>
+          <div class="choose col-33 col-offset-10" id='package_4' ng-click="choose(4)" style="margin-top:3%;margin-bottom:3%;" ng-class="{'choose2': isDeal4, 'choose': isntDeal4}">其他投诉</div>
+        </div>
+
+        <div class="item item-divider ">
+          <h2 class="" style="font-size: 130%">投诉内容</h2>
+        </div>
+        <ion-toggle ng-repeat="item in settingsList"
+                    ng-model='item.checked'
+                    ng-checked="item.checked">
+          {{ item.text }}
+        </ion-toggle>
+
+        <ion-list>
+          <ion-item class="item-input">
+            <span class="input-label">投诉描述</span>
+            <input type="text"  ng-model="order.xingming">
+          </ion-item>
+          <ion-item class="item-input">
+            <span class="input-label">图像</span>
+            <input type="text"  ng-model="order.xingming">
+          </ion-item>
+          <ion-item class="item-input">
+            <span class="input-label">视频</span>
+            <input type="text"  ng-model="order.shouji">
+          </ion-item>
+
+        </ion-list>
       </div>
     </ion-content>
   </div>
 </script>
+
+<style>
+  .choose{
+    color:black;
+    text-align: center;
+    border: 1px solid darkgray;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    font-size: 120%;
+  }
+  .choose2{
+    color:red;
+    text-align: center;
+    border: 1px solid red;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    font-size: 120%;
+  }
+
+</style>

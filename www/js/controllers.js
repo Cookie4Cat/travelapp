@@ -72,6 +72,59 @@ angular.module('starter.controllers', [])
 
 .controller('complainModalCtrl',function($scope,$stateParams,$rootScope){
   $scope.test=$rootScope.contact;
+  $scope.isDeal1=false;
+  $scope.isDeal2=false;
+  $scope.isDeal3=false;
+  $scope.isDeal4=false;
+  $scope.isntDeal1=false;
+  $scope.isntDeal2=false;
+  $scope.isntDeal3=false;
+  $scope.isntDeal4=false;
+
+  $scope.choose=function(number){
+    console.log(number);
+    if (number==1){
+      $scope.isDeal1=true;
+      $scope.isDeal2=false;
+      $scope.isDeal3=false;
+      $scope.isDeal4=false;
+      $scope.isntDeal1=false;
+      $scope.isntDeal2=true;
+      $scope.isntDeal3=true;
+      $scope.isntDeal4=true;
+    }else if(number==2){
+      $scope.isDeal1=false;
+      $scope.isDeal2=true;
+      $scope.isDeal3=false;
+      $scope.isDeal4=false;
+      $scope.isntDeal1=true;
+      $scope.isntDeal2=false;
+      $scope.isntDeal3=true;
+      $scope.isntDeal4=true;
+    }else if(number==3){
+      $scope.isDeal1=false;
+      $scope.isDeal2=false;
+      $scope.isDeal3=true;
+      $scope.isDeal4=false;
+      $scope.isntDeal1=true;
+      $scope.isntDeal2=true;
+      $scope.isntDeal3=false;
+      $scope.isntDeal4=true;
+    }else if(number==4){
+      $scope.isDeal1=false;
+      $scope.isDeal2=false;
+      $scope.isDeal3=false;
+      $scope.isDeal4=true;
+      $scope.isntDeal1=true;
+      $scope.isntDeal2=true;
+      $scope.isntDeal3=true;
+      $scope.isntDeal4=false;
+    }
+
+
+
+  }
+
 })
 .controller('ComplainCtrl',function($scope,$stateParams,$ionicModal,$rootScope){
 
