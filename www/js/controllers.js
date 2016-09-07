@@ -72,59 +72,19 @@ angular.module('starter.controllers', [])
 
 .controller('complainModalCtrl',function($scope,$stateParams,$rootScope){
   $scope.test=$rootScope.contact;
-  $scope.isDeal1=false;
-  $scope.isDeal2=false;
-  $scope.isDeal3=false;
-  $scope.isDeal4=false;
-  $scope.isntDeal1=false;
-  $scope.isntDeal2=false;
-  $scope.isntDeal3=false;
-  $scope.isntDeal4=false;
 
-  $scope.choose=function(number){
-    console.log(number);
-    if (number==1){
-      $scope.isDeal1=true;
-      $scope.isDeal2=false;
-      $scope.isDeal3=false;
-      $scope.isDeal4=false;
-      $scope.isntDeal1=false;
-      $scope.isntDeal2=true;
-      $scope.isntDeal3=true;
-      $scope.isntDeal4=true;
-    }else if(number==2){
-      $scope.isDeal1=false;
-      $scope.isDeal2=true;
-      $scope.isDeal3=false;
-      $scope.isDeal4=false;
-      $scope.isntDeal1=true;
-      $scope.isntDeal2=false;
-      $scope.isntDeal3=true;
-      $scope.isntDeal4=true;
-    }else if(number==3){
-      $scope.isDeal1=false;
-      $scope.isDeal2=false;
-      $scope.isDeal3=true;
-      $scope.isDeal4=false;
-      $scope.isntDeal1=true;
-      $scope.isntDeal2=true;
-      $scope.isntDeal3=false;
-      $scope.isntDeal4=true;
-    }else if(number==4){
-      $scope.isDeal1=false;
-      $scope.isDeal2=false;
-      $scope.isDeal3=false;
-      $scope.isDeal4=true;
-      $scope.isntDeal1=true;
-      $scope.isntDeal2=true;
-      $scope.isntDeal3=true;
-      $scope.isntDeal4=false;
-    }
-
-
-
+  //投诉类别选择逻辑
+  //伪数据
+  $scope.typeList = ['酒店住宿','餐饮服务','旅游景区','其它投诉','我来凑数'];
+  $scope.types = [];
+  //注意i有可能污染作用域
+  for(var i = 0; i < $scope.typeList.length/2; i++){
+    $scope.types.push($scope.typeList.slice(i*2,(i+1)*2));
   }
-
+  
+  $scope.selectType = function (type) {
+    $scope.currentType = type;
+  }
 })
 .controller('ComplainCtrl',function($scope,$stateParams,$ionicModal,$rootScope){
 
