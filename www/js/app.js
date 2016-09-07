@@ -112,6 +112,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+    .state('tab.complain', {
+      url: '/mine/complain/:userid',
+      views: {
+        'tab-mine': {
+          templateUrl: 'templates/complain.html',
+          controller:'ComplainCtrl'
+        }
+      }
+    })
     .state('tab.test', {
       url: '/mine/:testinfor',
       views: {

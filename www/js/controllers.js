@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 
   .controller('DashCtrl', function($scope,$ionicModal,$rootScope) {
-
+    $rootScope.contact='邓博文';
     $rootScope.isset=function(){
       var msg=sessionStorage.getItem("userName");
       if(!msg){
@@ -67,5 +67,21 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ModalCtrl', function ($scope,$rootScope,$http, $ionicPopup) {
+
+})
+
+.controller('complainModalCtrl',function($scope,$stateParams,$rootScope){
+  $scope.test=$rootScope.contact;
+})
+.controller('ComplainCtrl',function($scope,$stateParams,$ionicModal,$rootScope){
+
+  $ionicModal.fromTemplateUrl('complainModal.html', function (modal) {
+    $scope.modal = modal;
+  }, {
+    animation: 'slide-in-up',
+    focusFirstInput: true
+  })
+
+ $scope.lalala='终于到第三级了'
 
 })

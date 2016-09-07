@@ -27,7 +27,7 @@
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-positive">
+    <ion-nav-bar class="bar-positive" align-title="center">
       <ion-nav-back-button>
       </ion-nav-back-button>
     </ion-nav-bar>
@@ -63,6 +63,36 @@
           </label>
           <button class="button button-full button-positive" ng-click="createContact()" style="margin-top:10%;color:white;font-family: 微软雅黑">登录</button>
           <button class="button button-full button-positive"  style="margin-top:5%;color:white;font-family: 微软雅黑">注册</button>
+        </div>
+      </div>
+    </ion-content>
+  </div>
+</script>
+
+
+<script id="complainModal.html" type="text/ng-template">
+  <div class="modal" ng-controller="complainModalCtrl">
+
+    <ion-header-bar class="bar bar-header bar-positive ">
+      <button class="button button-clear " ng-click="modal.hide()"><i class="icon ion-ios-close-empty" style="font-size:200%"></i></button>
+      <h1 class="title" style="letter-spacing: 3px;">投诉表单</h1>
+    </ion-header-bar>
+
+    <ion-content  class="positive">
+      <div class="padding" style="text-align: center">
+        <img src="img/logo.jpg" width="30%" style="border-radius:30px 30px 30px 30px;margin-top: 15px;">
+        <h4 style="font-family: 方正喵呜体;font-size:200%;">游世界  从这里起步</h4>
+        <h4>{{test}}</h4>
+        <div class="list" style="margin-top:10%;">
+          <label class="item item-input">
+            <span class="input-label">用户名</span>
+            <input ng-model="user.username" type="text">
+          </label>
+          <label class="item item-input" style="margin-top:5%">
+            <span class="input-label">密码</span>
+            <input ng-model="user.password" type="text">
+          </label>
+          <button class="button button-full button-positive" ng-click="createContact()" style="margin-top:10%;color:white;font-family: 微软雅黑">提交投诉表单</button>
         </div>
       </div>
     </ion-content>
