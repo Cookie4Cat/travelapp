@@ -53,6 +53,17 @@ angular.module('starter.controllers', [])
     focusFirstInput: true
   })
 
+  $scope.userid=3;
+
+})
+
+.controller('personalDetailCtrl',function($scope,$stateParams){
+  $scope.userid=$stateParams;
+  $scope.testinfor="爬爬爬爬";
+})
+
+.controller('testinforCtrl',function($scope,$stateParams){
+  $scope.test=$stateParams;
 })
 
 .controller('ModalCtrl', function ($scope,$rootScope,$http, $ionicPopup) {

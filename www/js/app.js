@@ -102,6 +102,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     }
   })
+
+    .state('tab.personal-detail', {
+      url: '/mine/:userid',
+      views: {
+        'tab-mine': {
+          templateUrl: 'templates/personalDetail.html',
+          controller:'personalDetailCtrl'
+        }
+      }
+    })
+    .state('tab.test', {
+      url: '/mine/:testinfor',
+      views: {
+        'tab-mine': {
+          templateUrl: 'templates/test.html',
+          controller:'testinforCtrl'
+        }
+      }
+    })
   ;
 
   // if none of the above states are matched, use this as the fallback
