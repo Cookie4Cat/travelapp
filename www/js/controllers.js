@@ -81,7 +81,7 @@ angular.module('starter.controllers', [])
   for(var i = 0; i < $scope.typeList.length/2; i++){
     $scope.types.push($scope.typeList.slice(i*2,(i+1)*2));
   }
-  
+  console.log($scope.types);
   $scope.selectType = function (type) {
     $scope.currentType = type;
   }
