@@ -1,8 +1,60 @@
 <ion-view view-title="我的投诉" >
   <ion-nav-buttons side="right">
-    <button class="button button-small" ng-click="modal.show()"><p><i class="icon ion-ios-plus-empty" style="font-size: 110%"></i></p></button>
+    <button class="button button-small button-clear" ng-click="modal.show()"><p><i class="icon ion-ios-plus-empty" style="font-size: 110%"></i></p></button>
   </ion-nav-buttons>
   <ion-content class="padding">
+
+    <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border " type="item-text-wrap"  style="border: 1px solid lightskyblue;margin-bottom:2%">
+      <img ng-src="img/logo.jpg" style="border-radius:25px 25px 25px 25px;"  >
+     <div class="row">
+       <h2 style="color: #000;">酒店住宿投诉</h2>  <i class="icon  balanced" style="margin-top: -8%"><h6 class="balanced" style="font-weight: bolder">处理完成</h6></i>
+     </div>
+
+      <p>这家宾馆的卫生条件···</p>
+      <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+      <ion-option-button class="button-assertive" ng-click="remove(chat)">
+        Delete
+      </ion-option-button>
+    </ion-item>
+
+
+    <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border " type="item-text-wrap"  style="border: 1px solid lightskyblue;margin-bottom:2%;">
+      <img ng-src="img/logo.jpg" style="border-radius:25px 25px 25px 25px;">
+      <div class="row">
+        <h2 style="color: #000;margin-top: 3%">酒店住宿投诉</h2>  <i class="icon  balanced" style="margin-top: -12%;"><h6 class="calm" style="font-weight: bolder">正在处理</h6></i>
+      </div>
+
+      <p>这家宾馆的卫生条件很不好，没有搓澡巾，拖鞋是臭的。</p>
+      <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+      <div style="height: 8px;width:183%;margin-top: 18%;border-top: 1px solid lightskyblue;margin-left: -60%">
+        <button class="button button-small  button-positive" style="float: right;margin-bottom:-2%;margin-top:1%;margin-right:1%">查看处理</button>
+      </div>
+
+      <ion-option-button class="button-assertive" ng-click="remove(chat)">
+        Delete
+      </ion-option-button>
+    </ion-item>
+
+
+    <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border " type="item-text-wrap"  style="border: 1px solid lightskyblue;margin-bottom:2%;">
+      <img ng-src="img/logo.jpg" style="border-radius:25px 25px 25px 25px;">
+      <div class="row">
+        <h2 style="color: #000;margin-top: 3%">酒店住宿投诉</h2>  <i class="icon  balanced" style="margin-top: -12%;"><h6 class="assertive" style="font-weight: bolder">投诉被驳</h6></i>
+      </div>
+
+      <p>这家宾馆的卫生条件很不好，没有搓澡巾，拖鞋是臭的。</p>
+      <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+      <div style="height: 8px;width:183%;margin-top: 18%;border-top: 1px solid lightskyblue;margin-left: -60%">
+        <button class="button button-small  button-positive" style="float: right;margin-bottom:-2%;margin-top:1%;margin-right:1%">重新提交</button>
+      </div>
+
+      <ion-option-button class="button-assertive" ng-click="remove(chat)">
+        Delete
+      </ion-option-button>
+    </ion-item>
+
+
+
     <a class="button button-full button-positive"  style="margin-top:5%;color:white;" href="#/tab/mine/{{lalala}}" >三级路由测试</a>
   </ion-content>
   <style>

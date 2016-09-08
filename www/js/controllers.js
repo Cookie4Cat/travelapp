@@ -96,6 +96,7 @@ angular.module('starter.controllers', [])
     focusFirstInput: true
   })
 
- $scope.lalala='终于到第三级了'
+
+  $scope.lalala='终于到第三级了'
 
 })
