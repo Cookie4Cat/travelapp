@@ -75,13 +75,14 @@ angular.module('starter.controllers', [])
 
   //投诉类别选择逻辑
   //伪数据
-  $scope.typeList = ['酒店住宿','餐饮服务','旅游景区','其它投诉','我来凑数'];
+  $scope.typeList = ['酒店住宿','餐饮服务','旅游景区','其它投诉'];
   $scope.types = [];
   //注意i有可能污染作用域
   for(var i = 0; i < $scope.typeList.length/2; i++){
     $scope.types.push($scope.typeList.slice(i*2,(i+1)*2));
   }
   console.log($scope.types);
+
   $scope.selectType = function (type) {
     $scope.currentType = type;
   }

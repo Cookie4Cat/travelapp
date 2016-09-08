@@ -75,54 +75,54 @@
 
     <ion-header-bar class="bar bar-header bar-positive ">
       <button class="button button-clear " ng-click="modal.hide()"><i class="icon ion-ios-close-empty" style="font-size:200%"></i></button>
-      <h1 class="title" style="letter-spacing: 3px;">投诉表单</h1>
+      <h1 class="title" style="letter-spacing: 3px;text-align: center">投诉表单</h1>
     </ion-header-bar>
 
     <ion-content  class="positive">
-      <div class="list">
+      <div>
 
-        <div class="item item-divider ">
-          <h2 class="" style="font-size: 130%">投诉类型</h2>
-        </div>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label positive">投诉类型</span>
+        </label>
+
         <div ng-repeat="typeRow in types">
-          <div class="row">
+          <div class="row" style="margin-top:2%;margin-bottom: 2%">
             <div class="choose col-33 col-offset-10" ng-repeat="type in typeRow" ng-click="selectType(type)"
                  ng-class="{true:'choose2',false:'choose'}[type==currentType]">{{type}}</div>
           </div>
         </div>
 
-        <div class="item item-divider ">
-          <h2 class="" style="font-size: 130%">投诉内容</h2>
-        </div>
-        <ion-toggle ng-repeat="item in settingsList"
-                    ng-model='item.checked'
-                    ng-checked="item.checked">
-          {{ item.text }}
-        </ion-toggle>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label positive">文字描述</span>
+          <textarea rows="4" cols="20" type="text" placeholder="请输入您对于本次投诉的描述。"/>
+        </label>
 
-        <ion-list>
-          <ion-item class="item-input">
-            <span class="input-label">投诉描述</span>
-            <input type="text"  ng-model="order.xingming">
-          </ion-item>
-          <ion-item class="item-input">
-            <span class="input-label">图像</span>
-            <input type="text"  ng-model="order.xingming">
-          </ion-item>
-          <ion-item class="item-input">
-            <span class="input-label">视频</span>
-            <input type="text"  ng-model="order.shouji">
-          </ion-item>
 
-        </ion-list>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label positive">图像描述</span>
+          <div class="row">
+          <i class="icon ion-plus" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;padding-left: 5%;padding-right: 5%;padding-bottom:2%;color:darkgray;border-color: darkgray "></i>
+          </div>
+        </label>
+
+        <label class="item item-input item-stacked-label">
+        <span class="input-label positive">视频描述</span>
+          <div class="row">
+            <i class="icon ion-plus" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;padding-left: 5%;padding-right: 5%;padding-bottom:2%;color:darkgray;border-color: darkgray "></i>
+          </div>
+        </label>
+        <button class="button button-block  button-positive" ng-click="createContact()" style="margin-top:3%;color:white;font-family: 微软雅黑;width: 92%;margin-left: 4%">提交投诉</button>
+
       </div>
+
     </ion-content>
+
   </div>
 </script>
 
 <style>
   .choose{
-    color:black;
+    color:darkgray;
     text-align: center;
     border: 1px solid darkgray;
     padding-top: 3%;
