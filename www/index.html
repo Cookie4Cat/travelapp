@@ -16,6 +16,7 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
+    <script type="text/javascript" src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
 
     <!-- your app's js -->
@@ -96,12 +97,12 @@
           <span class="input-label positive">文字描述</span>
           <textarea rows="4" cols="20" type="text" placeholder="请输入您对于本次投诉的描述。"/>
         </label>
-
-
         <label class="item item-input item-stacked-label">
           <span class="input-label positive">图像描述</span>
           <div class="row">
-          <i class="icon ion-plus" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;padding-left: 5%;padding-right: 5%;padding-bottom:2%;color:darkgray;border-color: darkgray "></i>
+            <img ngsrc="{{img}}">
+            <button ng-click="selectImg()">test</button>
+          <i class="icon ion-plus"  ng-click="selectImg()" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;padding-left: 5%;padding-right: 5%;padding-bottom:2%;color:darkgray;border-color: darkgray "></i>
           </div>
         </label>
 

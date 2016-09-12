@@ -70,7 +70,9 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('complainModalCtrl',function($scope,$stateParams,$rootScope){
+.controller('complainModalCtrl',function($scope,$stateParams,$rootScope,$ionicActionSheet){
+
+
   $scope.test=$rootScope.contact;
 
   //投诉类别选择逻辑
@@ -86,6 +88,41 @@ angular.module('starter.controllers', [])
   $scope.selectType = function (type) {
     $scope.currentType = type;
   }
+
+
+  //摄像头
+  function cameraSuccess(imageURI) {
+    $scope.img = imageURI;
+    $scope.$apply();
+  }
+
+  function cameraError() {
+    $scope.message.push("camera error");
+  }
+
+  $scope.selectImg = function() {
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [{
+        text: '相册'
+      }, {
+        text: '拍照'
+      }
+      ],
+      titleText: '选择图片',
+      cancelText: '取消',
+      cancel: function() {
+        // add cancel code..
+      },
+      buttonClicked: function(index) {
+        navigator.camera.getPicture(cameraSuccess, cameraError, {
+          sourceType: index
+        }); //调用系统相册、拍照
+      }
+    });
+  };
+
+
+
 })
 .controller('ComplainCtrl',function($scope,$stateParams,$ionicModal,$rootScope){
 
