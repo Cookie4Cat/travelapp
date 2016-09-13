@@ -100,16 +100,17 @@
         <label class="item item-input item-stacked-label">
           <span class="input-label positive">图像描述</span>
           <div class="row">
-            <img ngsrc="{{img}}">
-            <button ng-click="selectImg()">test</button>
-          <i class="icon ion-plus"  ng-click="selectImg()" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;padding-left: 5%;padding-right: 5%;padding-bottom:2%;color:darkgray;border-color: darkgray "></i>
+            <div ng-repeat="item in items" class="col-20" height="56px" style="margin-top: 4%;">
+              <img ng-src="{{item}}" class="col-100" height="56px" style="margin-top: 4%;margin-left:1%">
+            </div>
+          <button class="icon ion-plus button-clear col-20"  ng-click="addImage()" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;margin-left:1%;padding-bottom:16%;color:darkgray;border-color: darkgray "></button>
           </div>
         </label>
 
         <label class="item item-input item-stacked-label">
         <span class="input-label positive">视频描述</span>
           <div class="row">
-            <i class="icon ion-plus" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;padding-left: 5%;padding-right: 5%;padding-bottom:2%;color:darkgray;border-color: darkgray "></i>
+            <i class="icon ion-plus col-20"  ng-click="addImg()" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;padding-left: 6%;padding-right: 5%;padding-bottom:2%;color:darkgray;border-color: darkgray "></i>
           </div>
         </label>
         <button class="button button-block  button-positive" ng-click="createContact()" style="margin-top:3%;color:white;font-family: 微软雅黑;width: 92%;margin-left: 4%">提交投诉</button>
