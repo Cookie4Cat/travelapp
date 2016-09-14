@@ -150,7 +150,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     focusFirstInput: true
   });
 
-  $http.get('http://113.55.16.160:8088/v1/com/traveller/1/complaints')
+  $http.get('http://113.55.77.231:8088/v1/com/traveller/1/complaints')
     .success(function (reponse) {
       console.log(reponse);
       $ionicLoading.hide();

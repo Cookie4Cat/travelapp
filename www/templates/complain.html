@@ -32,10 +32,10 @@
       .status h6{
         font-weight: bolder;
       }
-      .row{
+      .my-row{
         width: 125%;
       }
-      .row div{
+      .my-row div{
         display: inline-block;
       }
     </style>
@@ -43,7 +43,7 @@
     <div ng-repeat="complain in complains" class="my-items">
       <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border" type="item-text-wrap"  style="border: 1px solid lightskyblue;margin-bottom:2%">
         <img ng-src="img/logo.jpg">
-        <div class="row">
+        <div class="my-row">
           <div><h2>酒店住宿投诉</h2></div>
           <div class="status" ng-switch="complain.status">
             <h6 ng-switch-when="处理完成" class="balanced">处理完成</h6>
