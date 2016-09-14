@@ -1,0 +1,13 @@
+ul.rating li {
+  display: inline-block;
+  float: left;
+  border: 0px;
+  background: none;
+  padding: 4%;
+  margin-top:-5%;
+}
+ul.rating li i {
+  font-size: 30px;
+  display: inline-block;
+  float: left;
+}

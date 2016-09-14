@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ionic.rating'])
 
 
   .controller('DashCtrl', function($scope,$ionicModal,$rootScope) {
@@ -146,7 +146,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('complainDetailCtrl',function($scope,$ionicPopup,$ionicModal){
+.controller('complainDetailCtrl',function($scope,$ionicPopup,$ionicModal,$ionicActionSheet,$timeout){
   $scope.contact='一来一回的投诉细节对话';
 
   $scope.showPopup = function() {
@@ -180,7 +180,63 @@ angular.module('starter.controllers', [])
         },
       ]
     });
-
-
   };
-})
+
+
+  $scope.showPopup2 = function() {
+
+    $scope.rating = {};
+    $scope.rating.rate = 3;
+    $scope.rating.max = 5;
+
+    var myPopup = $ionicPopup.show({
+      title: '<p>您好</p><p>请为我们的服务打分</p>',
+      template: '<rating ng-model="rating.rate" max="rating.max"  style="font-size: 200%;" class="energized"></rating>',
+      scope: $scope,
+      buttons: [
+        { text: '取消' },
+        {
+          text: '<b>提交</b>',
+          type: 'button-positive',
+          //onTap: function(e) {
+          //  $http.post("http://115.28.33.158:8088/chef/service/order/"+oid,$scope.order)
+          //    .success(function(data,stastus,headers,config){
+          //      if(data==1){
+          //        console.log('success')
+          //        $rootScope.reload();
+          //      }else {
+          //        console.log('error')
+          //      }
+          //    })
+          //    .error(function(data){
+          //      console.log('error')
+          //    })
+          //}
+        },
+      ]
+    });
+  };
+
+  $scope.show = function() {
+   var hideSheet=$ionicActionSheet.show({
+     titleText:"<p>操作当前投诉</p>",
+     buttons:[
+       {text:"<p class='positive'>回复</p>"},
+       {text:"<p class='assertive'>评分</p>"}
+     ],
+     buttonClicked:function(index){
+        if(index==0){
+          $scope.showPopup();
+        }else if(index==1){
+          $scope.showPopup2();
+        }
+     },
+     cancelText:"取消",
+     cancel:function(){
+
+     }
+   })
+
+
+   }
+});
