@@ -85,7 +85,7 @@ angular.module('starter.controllers', ['ionic.rating'])
   }
   console.log($scope.types);
 
-  $scope.selectType = function (type) {
+    $scope.selectType = function (type) {
     $scope.currentType = type;
   }
   $scope.items=[];
@@ -164,41 +164,15 @@ angular.module('starter.controllers', ['ionic.rating'])
 })
 
 .controller('complainDetailCtrl',function($scope,$ionicPopup,$ionicModal,$ionicActionSheet,$timeout){
+
+  $ionicModal.fromTemplateUrl('complainModal.html', function (modal) {
+    $scope.modal = modal;
+  }, {
+    animation: 'slide-in-up',
+    focusFirstInput: true
+  })
+
   $scope.contact='一来一回的投诉细节对话';
-
-  $scope.showPopup = function() {
-    // 自定义弹
-    $scope.order={
-      comment:""
-    };
-    var myPopup = $ionicPopup.show({
-      title: '<p>您好</p><p>请反馈你的投诉</p>',
-      template: '<textarea type="text" ng-model="order.comment" style="height: 100px;">',
-      scope: $scope,
-      buttons: [
-        { text: '取消' },
-        {
-          text: '<b>提交</b>',
-          type: 'button-positive',
-          //onTap: function(e) {
-          //  $http.post("http://115.28.33.158:8088/chef/service/order/"+oid,$scope.order)
-          //    .success(function(data,stastus,headers,config){
-          //      if(data==1){
-          //        console.log('success')
-          //        $rootScope.reload();
-          //      }else {
-          //        console.log('error')
-          //      }
-          //    })
-          //    .error(function(data){
-          //      console.log('error')
-          //    })
-          //}
-        },
-      ]
-    });
-  };
-
 
   $scope.showPopup2 = function() {
 
@@ -243,9 +217,11 @@ angular.module('starter.controllers', ['ionic.rating'])
      ],
      buttonClicked:function(index){
         if(index==0){
-          $scope.showPopup();
+          $scope.modal.show();
+          hideSheet();
         }else if(index==1){
           $scope.showPopup2();
+          hideSheet();
         }
      },
      cancelText:"取消",
