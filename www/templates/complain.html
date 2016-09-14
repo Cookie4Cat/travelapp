@@ -38,10 +38,14 @@
       .my-row div{
         display: inline-block;
       }
+      .my-items ion-item{
+        border: 1px solid lightskyblue;
+        margin-bottom:2%;
+      }
     </style>
 
     <div ng-repeat="complain in complains" class="my-items">
-      <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border" type="item-text-wrap"  style="border: 1px solid lightskyblue;margin-bottom:2%">
+      <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border" type="item-text-wrap">
         <img ng-src="img/logo.jpg">
         <div class="my-row">
           <div><h2>酒店住宿投诉</h2></div>
@@ -49,12 +53,13 @@
             <h6 ng-switch-when="处理完成" class="balanced">处理完成</h6>
             <h6 ng-switch-when="处理中" class="calm">正在处理</h6>
             <h6 ng-switch-when="投诉被驳" class="assertive">投诉被驳</h6>
+            <h6 ng-switch-when="待审核" class="calm">正在审核</h6>
           </div>
         </div>
         <p>{{complain.description}}</p>
         <div class="opt-btn" ng-switch="complain.status">
-          <a ng-switch-when="处理中" class="button button-small  button-positive" href="#/tab/mine/complainDetail/specific">查看处理</a>
-          <a ng-switch-when="处理完成" class="button button-small  button-positive" href="#/tab/mine/complainDetail/specific">查看处理</a>
+          <a ng-switch-when="处理中" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}">查看处理</a>
+          <a ng-switch-when="处理完成" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}">查看处理</a>
           <button ng-switch-when="投诉被驳" class="button button-small  button-positive" ng-click="modal.show()">重新提交</button>
         </div>
       </ion-item>

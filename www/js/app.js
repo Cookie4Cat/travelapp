@@ -122,7 +122,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
     .state('tab.complainDetail', {
-      url: '/mine/complainDetail/specific',
+      url: '/mine/complainDetail/:comId',
       views: {
         'tab-mine': {
           templateUrl: 'templates/complainDetail.html',
