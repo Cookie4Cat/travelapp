@@ -132,14 +132,31 @@ angular.module('starter.controllers', ['ionic.rating'])
 
 
 })
-.controller('ComplainCtrl',function($scope,$stateParams,$ionicModal,$rootScope){
+.controller('ComplainCtrl',function($scope,$http,$stateParams,$ionicModal,$ionicLoading,$rootScope){
 
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
+
+  //模态框
   $ionicModal.fromTemplateUrl('complainModal.html', function (modal) {
     $scope.modal = modal;
   }, {
     animation: 'slide-in-up',
     focusFirstInput: true
-  })
+  });
+
+  $http.get('http://113.55.16.160:8088/v1/com/traveller/1/complaints')
+    .success(function (reponse) {
+      console.log(reponse);
+      $ionicLoading.hide();
+      $scope.complains = reponse;
+    });
+
 
 
   $scope.lalala='终于到第三级了'

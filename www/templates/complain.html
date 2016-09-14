@@ -3,68 +3,63 @@
     <button class="button button-small button-clear" ng-click="modal.show()"><p><i class="icon ion-ios-plus-empty" style="font-size: 110%"></i></p></button>
   </ion-nav-buttons>
   <ion-content class="padding">
+    <style>
+      .my-items ion-item img{
+        border-radius:25px 25px 25px 25px;
+      }
+      .opt-btn{
+        height: 8px;
+        width:183%;
+        margin-top: 18%;
+        border-top: 1px solid lightskyblue;
+        margin-left: -60%;
+      }
+      .opt-btn a{
+        float: right;
+        margin-bottom:-2%;
+        margin-top:1%;
+        margin-right:1%;
+      }
+      .opt-btn button{
+        float: right;
+        margin-bottom:-2%;
+        margin-top:1%;
+        margin-right:1%;
+      }
+      .status{
+        margin-left: 35%;
+      }
+      .status h6{
+        font-weight: bolder;
+      }
+      .row{
+        width: 125%;
+      }
+      .row div{
+        display: inline-block;
+      }
+    </style>
 
-    <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border " type="item-text-wrap"  style="border: 1px solid lightskyblue;margin-bottom:2%">
-      <img ng-src="img/logo.jpg" style="border-radius:25px 25px 25px 25px;"  >
-     <div class="row">
-       <h2 style="color: #000;">酒店住宿投诉</h2>  <i class="icon  balanced" style="margin-top: -8%"><h6 class="balanced" style="font-weight: bolder">处理完成</h6></i>
-     </div>
+    <div ng-repeat="complain in complains" class="my-items">
+      <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border" type="item-text-wrap"  style="border: 1px solid lightskyblue;margin-bottom:2%">
+        <img ng-src="img/logo.jpg">
+        <div class="row">
+          <div><h2>酒店住宿投诉</h2></div>
+          <div class="status" ng-switch="complain.status">
+            <h6 ng-switch-when="处理完成" class="balanced">处理完成</h6>
+            <h6 ng-switch-when="处理中" class="calm">正在处理</h6>
+            <h6 ng-switch-when="投诉被驳" class="assertive">投诉被驳</h6>
+          </div>
+        </div>
+        <p>{{complain.description}}</p>
+        <div class="opt-btn" ng-switch="complain.status">
+          <a ng-switch-when="处理中" class="button button-small  button-positive" href="#/tab/mine/complainDetail/specific">查看处理</a>
+          <a ng-switch-when="处理完成" class="button button-small  button-positive" href="#/tab/mine/complainDetail/specific">查看处理</a>
+          <button ng-switch-when="投诉被驳" class="button button-small  button-positive" ng-click="modal.show()">重新提交</button>
+        </div>
+      </ion-item>
+    </div>
 
-      <p>这家宾馆的卫生条件···</p>
-      <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
-      <ion-option-button class="button-assertive" ng-click="remove(chat)">
-        Delete
-      </ion-option-button>
-    </ion-item>
-
-
-    <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border " type="item-text-wrap"  style="border: 1px solid lightskyblue;margin-bottom:2%;">
-      <img ng-src="img/logo.jpg" style="border-radius:25px 25px 25px 25px;">
-      <div class="row">
-        <h2 style="color: #000;margin-top: 3%">酒店住宿投诉</h2>  <i class="icon  balanced" style="margin-top: -12%;"><h6 class="calm" style="font-weight: bolder">正在处理</h6></i>
-      </div>
-
-      <p>这家宾馆的卫生条件很不好，没有搓澡巾，拖鞋是臭的。</p>
-      <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
-      <div style="height: 8px;width:183%;margin-top: 18%;border-top: 1px solid lightskyblue;margin-left: -60%">
-        <a class="button button-small  button-positive" style="float: right;margin-bottom:-2%;margin-top:1%;margin-right:1%" href="#/tab/mine/complainDetail/specific">查看处理</a>
-      </div>
-
-      <ion-option-button class="button-assertive" ng-click="remove(chat)">
-        Delete
-      </ion-option-button>
-    </ion-item>
-
-
-    <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border " type="item-text-wrap"  style="border: 1px solid lightskyblue;margin-bottom:2%;">
-      <img ng-src="img/logo.jpg" style="border-radius:25px 25px 25px 25px;">
-      <div class="row">
-        <h2 style="color: #000;margin-top: 3%">酒店住宿投诉</h2>  <i class="icon  balanced" style="margin-top: -12%;"><h6 class="assertive" style="font-weight: bolder">投诉被驳</h6></i>
-      </div>
-
-      <p>这家宾馆的卫生条件很不好，没有搓澡巾，拖鞋是臭的。</p>
-      <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
-      <div style="height: 8px;width:183%;margin-top: 18%;border-top: 1px solid lightskyblue;margin-left: -60%">
-        <button class="button button-small  button-positive" style="float: right;margin-bottom:-2%;margin-top:1%;margin-right:1%">重新提交</button>
-      </div>
-
-      <ion-option-button class="button-assertive" ng-click="remove(chat)">
-        Delete
-      </ion-option-button>
-    </ion-item>
-
-
-
-    <a class="button button-full button-positive"  style="margin-top:5%;color:white;" href="#/tab/mine/{{lalala}}" >三级路由测试</a>
   </ion-content>
-  <style>
-    .color{
-      color: white;
-      font-size: 120%
-    }
-    .color:hover{
-      color:red;
-    }
-  </style>
 </ion-view>
 
