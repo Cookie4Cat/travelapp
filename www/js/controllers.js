@@ -157,8 +157,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       $scope.complains = reponse;
     });
 
-
-
+  
   $scope.lalala='终于到第三级了'
 
 })
