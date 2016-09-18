@@ -1,11 +1,70 @@
-<ion-view view-title="">
-  <ion-nav-buttons side="left">
-    <button class="button button-small" ng-click="modal.show()"><p><i class="icon ion-person-stalker" style="font-size: 110%"></i></p></button>
-  </ion-nav-buttons>
+<ion-view hide-nav-bar="true">
+  <!--<ion-nav-buttons side="left">-->
+    <!--<button class="button button-small" ng-click="modal.show()"><p><i class="icon ion-person-stalker" style="font-size: 110%"></i></p></button>-->
+  <!--</ion-nav-buttons>-->
+  <style>
+    .guider{
+      border-radius: 25px 25px 25px 25px;
+      width: 70%;
+      padding-top: 10%;
+      padding-bottom: 10%;
+      margin-top: 10%;
+      margin-left: 15%;
+    }
+    .guider i{
+      color: white;
+      font-size: 260%;
+    }
+    .word{
+      margin-top: 5%;
+      color: #000;
+    }
+  </style>
   <ion-nav-title>
-    <i class="icon ion-earth" style="letter-spacing: 3px;font-size:110%">首页</i>
+    <ion-header-bar class="item-input-inset">
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" placeholder="搜索" ng-model="searchContent">
+      </label>
+      <button class="button button-clear">
+        取消
+      </button>
+    </ion-header-bar>
   </ion-nav-title>
-  <ion-content class="padding">
-    <h1> MainPage</h1>
+  <ion-content class="padding" style="background-color: lightgrey">
+
+      <label class="item-input-wrapper" style="position: absolute;z-index: 100;margin-top: 5%;box-shadow: 3px 3px 10px black;width: 90%;margin-left: 5%;">
+        <i class="icon ion-ios-search placeholder-icon" style="width: 7%;font-size:140%"></i>
+        <input type="search" placeholder="搜索" style="width: 110%" class="firstInput">
+      </label>
+
+    <ion-slide-box does-continue="true" auto-play="true" style="width: 107%;margin-left: -3%;margin-top: -3%;border-radius: 20px 20px 20px 20px ">
+      <ion-slide>
+        <div class="box blue"> <img src="img/1.jpg" width="100%" height="200px"></div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box yellow"> <img src="img/2.jpg" width="100%" height="200px"></div>
+      </ion-slide>
+      <ion-slide>
+        <div class="box yellow"> <img src="img/3.jpg" width="100%" height="200px"></div>
+      </ion-slide>
+    </ion-slide-box>
+
+    <div class="row" style="background-color: white;text-align: center;width:105%;margin-left:-2%">
+      <div class="col-20"><div class="guider assertive-bg" style="background-color:#a00000;"><i class="ion-ios-home"></i></div></div>
+      <div class="col-20"><div class="guider positive-bg" ><i class="ion-android-restaurant"></i></div></div>
+      <div class="col-20"><div class="guider balanced-bg" ><i class="ion-mic-c"></i></div></div>
+      <div class="col-20"><div class="guider royal-bg"><i class="ion-model-s"></i></div></div>
+      <div class="col-20"><div class="guider dark-bg"><i class="ion-radio-waves"></i></div></div>
+    </div>
+    <div class="row" style="background-color: white;text-align: center;width:105%;margin-left:-2%">
+      <div class="col-20"><p class="word">酒店</p></div>
+      <div class="col-20"><p class="word">餐饮</p></div>
+      <div class="col-20"><p class="word">演出</p></div>
+      <div class="col-20"><p class="word">路况</p></div>
+      <div class="col-20"><p class="word">公告</p></div>
+    </div>
+
   </ion-content>
 </ion-view>
+
