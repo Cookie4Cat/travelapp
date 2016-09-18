@@ -89,48 +89,71 @@ angular.module('starter.controllers', ['ionic.rating'])
 
     $scope.selectType = function (type) {
       $scope.currentType = type;
+    };
+
+
+
+
+    //----------------图片上传相关------------------
+    $scope.complaint = {};
+
+    $scope.submitComplaint = function () {
+      //先提交基本内容
+      //跟据返回值循环提交图片
+    };
+
+    function upload(fileURL,comId) {
+      var success = function(r) {
+        var response = JSON.parse(r.response);
+        $scope.message.push(JSON.parse(r));
+        if(response.datas.state){
+          alert("修改成功");
+        }else {
+          alert(response.datas.error);
+        }
+      };
+      var fail = function(error) {
+        $scope.message.push('上传失败');
+      };
+
+      var options = new FileUploadOptions();
+      options.fileKey = "pic";
+      options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+      options.mimeType = "image/jpeg";
+
+      var ft = new FileTransfer();
+      ft.upload(fileURL, encodeURI(baseUrl + 'complaints/' + comId + '/images'), success, fail, options);
     }
-    $scope.items = [];
-    $scope.addImage = function () {
 
-      for (i = 1; i <= 5; i++) {
-        var img = "img/logo" + i + '.jpg'
-        $scope.items.push(img)
-      }
-      console.log($scope.items)
+    function cameraSuccess(imageURI) {
+      $scope.images.push(imageURI);
+      $scope.$apply();
     }
 
-    //摄像头
-    //function cameraSuccess(imageURI) {
-    //  $scope.img = imageURI;
-    //  $scope.$apply();
-    //}
-    //
-    //function cameraError() {
-    //  $scope.message.push("camera error");
-    //}
-    //
-    //$scope.selectImg = function() {
-    //  var hideSheet = $ionicActionSheet.show({
-    //    buttons: [{
-    //      text: '相册'
-    //    }, {
-    //      text: '拍照'
-    //    }
-    //    ],
-    //    titleText: '选择图片',
-    //    cancelText: '取消',
-    //    cancel: function() {
-    //      // add cancel code..
-    //    },
-    //    buttonClicked: function(index) {
-    //      navigator.camera.getPicture(cameraSuccess, cameraError, {
-    //        sourceType: index
-    //      }); //调用系统相册、拍照
-    //    }
-    //  });
-    //};
+    function cameraError() {
+      console.log('选择图片失败');
+    }
 
+    $scope.selectImg = function () {
+      var hideSheet = $ionicActionSheet.show({
+        buttons: [{
+          text: '相册'
+        }, {
+          text: '拍照'
+        }
+        ],
+        titleText: '选择图片',
+        cancelText: '取消',
+        cancel: function () {
+          // add cancel code..
+        },
+        buttonClicked: function (index) {
+          navigator.camera.getPicture(cameraSuccess, cameraError, {
+            sourceType: index
+          });
+        }
+      });
+    };
 
   })
   .controller('ComplainCtrl', function (baseUrl,$scope, $http, $stateParams, $ionicModal, $ionicLoading, $rootScope) {

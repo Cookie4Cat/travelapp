@@ -96,7 +96,7 @@
 
         <label class="item item-input item-stacked-label">
           <span class="input-label positive">文字描述</span>
-          <textarea rows="4" cols="20" type="text" placeholder="请输入您对于本次投诉的描述。"/>
+          <textarea rows="4" cols="20" type="text" placeholder="请输入您对于本次投诉的描述。" ng-model="complaint.description"/>
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label positive">图像描述</span>
@@ -114,7 +114,7 @@
             <i class="icon ion-plus col-20"  ng-click="addImg()" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;padding-left: 6%;padding-right: 5%;padding-bottom:2%;color:darkgray;border-color: darkgray "></i>
           </div>
         </label>
-        <button class="button button-block  button-positive" ng-click="createContact()" style="margin-top:3%;color:white;font-family: 微软雅黑;width: 92%;margin-left: 4%">提交投诉</button>
+        <button class="button button-block  button-positive" ng-click="submitComplaint()" style="margin-top:3%;color:white;font-family: 微软雅黑;width: 92%;margin-left: 4%">提交投诉</button>
 
       </div>
     </ion-content>

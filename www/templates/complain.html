@@ -61,6 +61,7 @@
           <a ng-switch-when="处理中" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}">查看处理</a>
           <a ng-switch-when="处理完成" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}">查看处理</a>
           <button ng-switch-when="投诉被驳" class="button button-small  button-positive" ng-click="modal.show()">重新提交</button>
+          <a ng-switch-when="待审核" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}">查看投诉</a>
         </div>
       </ion-item>
     </div>
