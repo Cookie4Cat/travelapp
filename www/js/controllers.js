@@ -19,6 +19,18 @@ angular.module('starter.controllers', ['ionic.rating'])
       animation: 'slide-in-up',
       focusFirstInput: true
     })
+
+    $scope.isntClick=true;
+    $scope.isClick=false;
+    $scope.styleClick=function(){
+     if ($scope.isntClick==true){
+       $scope.isntClick=false;
+       $scope.isClick=true;
+     }else if($scope.isntClick==false){
+       $scope.isntClick=true;
+       $scope.isClick=false;
+     }
+    }
   })
 
   .controller('ChatsCtrl', function ($scope, Chats) {
