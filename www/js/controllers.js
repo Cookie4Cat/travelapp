@@ -286,4 +286,21 @@ angular.module('starter.controllers', ['ionic.rating'])
         }
       })
     }
-  });
+  })
+
+.controller('hotelCtrl',function($scope){
+  $scope.test='hotel';
+})
+  .controller('canteenCtrl',function($scope){
+    $scope.test='canteen';
+  })
+  .controller('performanceCtrl',function($scope){
+    $scope.test='performance';
+  })
+  .controller('trafficCtrl',function($scope){
+    $scope.test='traffic';
+  })
+  .controller('announcementlCtrl',function($scope){
+    $scope.test='announcement';
+  })
+

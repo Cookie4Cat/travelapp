@@ -130,6 +130,57 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+    .state('tab.hotel', {
+      url: '/account/hotel/',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account-hotel.html',
+          controller:'hotelCtrl'
+        }
+      }
+    })
+    .state('tab.canteen', {
+      url: '/account/canteen/',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account-canteen.html',
+          controller:'canteenCtrl'
+        }
+      }
+    })
+    .state('tab.performance', {
+      url: '/account/performance/',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account-performance.html',
+          controller:'performanceCtrl'
+        }
+      }
+    })
+    .state('tab.traffic', {
+      url: '/account/traffic/',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account-traffic.html',
+          controller:'trafficCtrl'
+        }
+      }
+    })
+    .state('tab.announcement', {
+      url: '/account/announcement/',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account-announcement.html',
+          controller:'announcementlCtrl'
+        }
+      }
+    })
+
+    .state("list", {
+      "url" : "/",
+      "templateUrl" : "templates/account-hotel.html",
+      controller:'hotelCtrl'
+    })
   ;
 
   // if none of the above states are matched, use this as the fallback

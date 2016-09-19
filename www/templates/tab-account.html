@@ -1,9 +1,32 @@
 <ion-view view-title="服务">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-  </ion-content>
+  <style>
+    .subHeaderBar{
+      width: 90%;
+      text-align: center;
+      padding-top: 5%;
+      padding-bottom: 5%;
+    }
+    .subHeaderText{
+      color:white;
+      font-size: 120%;
+      text-decoration: none;
+    }
+  </style>
+   <ion-header-bar class="bar-subheader">
+      <div class="row">
+        <div class="tabs">
+        <!--<div class="col-20 "><div class="balanced-bg subHeaderBar"><a class="subHeaderText" href="#/tab/account/hotel/">酒店</a></div></div>-->
+        <!--<div class="col-20 "><div class="balanced-bg subHeaderBar"><a class="subHeaderText" href="#/tab/account/canteen/">餐饮</a></div></div>-->
+        <!--<div class="col-20 "><div class="balanced-bg subHeaderBar"><a class="subHeaderText" href="#/tab/account/performance/">演出</a></div></div>-->
+        <!--<div class="col-20 "><div class="balanced-bg subHeaderBar"><a class="subHeaderText" href="#/tab/account/traffic/">路况</a></div></div>-->
+        <!--<div class="col-20 "><div class="balanced-bg subHeaderBar"><a class="subHeaderText" href="#/tab/account/announcement/">公告</a></div></div>-->
+
+          <a ui-sref="list">酒店</a>
+        </div>
+     </div>
+   </ion-header-bar>
+  <ion-nav-view>
+    <!-- Center content -->
+
+  </ion-nav-view>
 </ion-view>
