@@ -130,59 +130,60 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    .state('tab.hotel', {
+
+
+    .state('funcTab', {
+      url: '/funcTab',
+      abstract: true,
+      templateUrl: 'templates/tab-account.html'
+    })
+
+
+    .state('funcTab.hotel', {
       url: '/account/hotel/',
       views: {
-        'tab-account': {
+        'funcTab-diagnosis': {
           templateUrl: 'templates/account-hotel.html',
           controller:'hotelCtrl'
         }
       }
     })
-    .state('tab.canteen', {
+    .state('funcTab.canteen', {
       url: '/account/canteen/',
       views: {
-        'tab-account': {
+        'funcTab-order': {
           templateUrl: 'templates/account-canteen.html',
           controller:'canteenCtrl'
         }
       }
     })
-    .state('tab.performance', {
+    .state('funcTab.performance', {
       url: '/account/performance/',
       views: {
-        'tab-account': {
+        'funcTab-check': {
           templateUrl: 'templates/account-performance.html',
           controller:'performanceCtrl'
         }
       }
     })
-    .state('tab.traffic', {
+    .state('funcTab.traffic', {
       url: '/account/traffic/',
       views: {
-        'tab-account': {
+        'funcTab-test': {
           templateUrl: 'templates/account-traffic.html',
           controller:'trafficCtrl'
         }
       }
     })
-    .state('tab.announcement', {
+    .state('funcTab.announcement', {
       url: '/account/announcement/',
       views: {
-        'tab-account': {
+        'funcTab-blood': {
           templateUrl: 'templates/account-announcement.html',
           controller:'announcementlCtrl'
         }
       }
     })
-
-    .state("list", {
-      "url" : "/",
-      "templateUrl" : "templates/account-hotel.html",
-      controller:'hotelCtrl'
-    })
-  ;
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 
