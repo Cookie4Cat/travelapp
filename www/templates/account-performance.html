@@ -1,5 +1,8 @@
-<ion-view title="演出信息">
-  <ion-content>
-    <p ng-bind="test"></p>
-  </ion-content>
-</ion-view>
+
+<div ng-controller="performanceCtrl">
+  <div class="row">
+    <div class="col text-center" ng-repeat="x in tests">{{x.name}}</div>
+  </div>
+</div>
+
+

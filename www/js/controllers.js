@@ -1,5 +1,24 @@
 angular.module('starter.controllers', ['ionic.rating'])
 
+.directive('hideTabs', function($rootScope) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attributes) {
+      scope.$on('$ionicView.beforeEnter', function() {
+        scope.$watch(attributes.hideTabs, function(value){
+          $rootScope.hideTabs = value;
+        });
+      });
+
+      scope.$on('$ionicView.beforeLeave', function() {
+        $rootScope.hideTabs = false;
+      });
+    }
+  };
+})
+
+
+
   //静态变量，后端API前缀
   .constant('baseUrl','http://localhost:8088/v1/com/traveller/')
   .constant('resourceUrl','http://localhost:8088/')
@@ -52,7 +71,40 @@ angular.module('starter.controllers', ['ionic.rating'])
     $scope.chat = Chats.get($stateParams.chatId);
   })
 
-  .controller('AccountCtrl', function ($scope) {
+  .controller('AccountCtrl', function ($scope,$state) {
+
+
+
+    $scope.items=[
+      {name:'酒店'},
+      {name:'餐饮'},
+      {name:'演出'},
+      {name:'路况'},
+      {name:'公告'},
+    ]
+    $scope.checkClick=[];
+    $scope.notCheck=[];
+
+
+    $scope.check=function($index){
+      for(i=0;i<5;i++){
+        if(i==$index){
+          $scope.checkClick[i]=false;
+          $scope.notCheck[i]=true;
+        }else {
+          $scope.checkClick[i]=true;
+          $scope.notCheck[i]=false;
+        }
+      }
+    }
+
+    $scope.check(0);
+
+
+
+
+
+
     $scope.settings = {
       enableFriends: true
     };
@@ -426,17 +478,65 @@ angular.module('starter.controllers', ['ionic.rating'])
 
 .controller('hotelCtrl',function($scope){
   $scope.test='hotel';
+  $scope.tests = [
+    {
+      name: 'test1'
+    }, {
+      name: 'test2'
+    }, {
+      name: 'test3'
+    }
+  ]
 })
   .controller('canteenCtrl',function($scope){
-    $scope.test='canteen';
+    $scope.tests = [
+      {
+        name: 'canteenCtrl'
+      }, {
+        name: 'canteenCtrl'
+      }, {
+        name: 'canteenCtrl'
+      }
+    ]
   })
   .controller('performanceCtrl',function($scope){
-    $scope.test='performance';
+    $scope.tests = [
+      {
+        name: 'performanceCtrl'
+      }, {
+        name: 'performanceCtrl'
+      }, {
+        name: 'performanceCtrl'
+      }
+    ]
   })
   .controller('trafficCtrl',function($scope){
-    $scope.test='traffic';
+    $scope.tests = [
+      {
+        name: 'trafficCtrl'
+      }, {
+        name: 'trafficCtrl'
+      }, {
+        name: 'trafficCtrl'
+      }
+    ]
   })
   .controller('announcementlCtrl',function($scope){
-    $scope.test='announcement';
+    $scope.tests = [
+      {
+        name: 'announcementlCtrl'
+      }, {
+        name: 'announcementlCtrl'
+      }, {
+        name: 'announcementlCtrl'
+      }
+    ]
   })
+
+  //.controller('tabCtrl',function($scope){
+  //  $scope.test='aaaaaaaa';
+  // $scope.check=function(){
+  //
+  // }
+  //})
 

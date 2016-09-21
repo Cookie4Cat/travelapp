@@ -49,7 +49,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+
   })
 
   // Each tab has its own nav history stack:
@@ -82,17 +83,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  })
-
     .state('tab.mine', {
     url: '/mine',
     views: {
@@ -131,15 +121,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-
-    .state('funcTab', {
-      url: '/funcTab',
-      abstract: true,
-      templateUrl: 'templates/tab-account.html'
+    .state('tab.account', {
+      url: '/account',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/tab-account.html',
+          controller: 'AccountCtrl'
+        }
+      }
     })
 
+      //.state('funcTab', {
+      //  url: '/funcTab',
+      //  abstract: true,
+      //  templateUrl: 'templates/tab-account.html'
+      //})
 
-    .state('funcTab.hotel', {
+
+
+
+    .state('tab.hotel', {
       url: '/account/hotel/',
       views: {
         'funcTab-diagnosis': {
@@ -148,7 +149,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    .state('funcTab.canteen', {
+    .state('tab.canteen', {
       url: '/account/canteen/',
       views: {
         'funcTab-order': {
@@ -157,7 +158,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    .state('funcTab.performance', {
+    .state('tab.performance', {
       url: '/account/performance/',
       views: {
         'funcTab-check': {
@@ -166,7 +167,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    .state('funcTab.traffic', {
+    .state('tab.traffic', {
       url: '/account/traffic/',
       views: {
         'funcTab-test': {
@@ -175,7 +176,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    .state('funcTab.announcement', {
+    .state('tab.announcement', {
       url: '/account/announcement/',
       views: {
         'funcTab-blood': {
@@ -184,7 +185,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-  // if none of the above states are matched, use this as the fallback
+
   $urlRouterProvider.otherwise('/tab/dash');
 
 });
