@@ -20,7 +20,7 @@ angular.module('starter.controllers', ['ionic.rating'])
 
 
   //静态变量，后端API前缀
-  .constant('baseUrl','http://localhost:8088/v1/com/traveller/')
+  .constant('baseUrl','http://113.55.24.209:8088/v1/com/traveller/')
   .constant('resourceUrl','http://localhost:8088/')
   .controller('DashCtrl', function ($scope, $ionicModal, $rootScope) {
     $rootScope.contact = '邓博文';

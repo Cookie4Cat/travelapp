@@ -4,67 +4,50 @@
   </ion-nav-buttons>
   <ion-content class="padding">
     <style>
-      .my-items ion-item img{
-        border-radius:25px 25px 25px 25px;
-      }
-      .opt-btn{
-        height: 8px;
-        width:183%;
-        margin-top: 18%;
-        border-top: 1px solid lightskyblue;
-        margin-left: -60%;
-      }
-      .opt-btn a{
-        float: right;
-        margin-bottom:-2%;
-        margin-top:1%;
-        margin-right:1%;
-      }
-      .opt-btn button{
-        float: right;
-        margin-bottom:-2%;
-        margin-top:1%;
-        margin-right:1%;
-      }
       .status{
-        margin-left: 35%;
+        float: left;
+      }
+      .status h6{
+        font-size: 95%;
       }
       .status h6{
         font-weight: bolder;
       }
-      .my-row{
-        width: 125%;
+      .mybutton{
+        float: right;
+        padding-top: -10%;
+        margin-top: -2%;
+        margin-bottom: -2%;
       }
-      .my-row div{
-        display: inline-block;
-      }
-      .my-items ion-item{
-        border: 1px solid lightskyblue;
-        margin-bottom:2%;
-      }
+
+
     </style>
 
-    <div ng-repeat="complain in complains" class="my-items">
-      <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border" type="item-text-wrap">
+    <div ng-repeat="complain in complains" class="card">
+      <div class="item item-divider">
+        <div class="status" ng-switch="complain.status">
+          <h6 ng-switch-when="处理完成" class="balanced">处理完成</h6>
+          <h6 ng-switch-when="处理中" class="calm">正在处理</h6>
+          <h6 ng-switch-when="投诉被驳" class="assertive">投诉被驳</h6>
+          <h6 ng-switch-when="待审核" class="calm">正在审核</h6>
+        </div>
+      </div>
+
+      <div class="item item-avatar comment">
         <img ng-src="img/logo.jpg">
-        <div class="my-row">
-          <div><h2>{{typeMap[complain.type]}}投诉</h2></div>
-          <div class="status" ng-switch="complain.status">
-            <h6 ng-switch-when="处理完成" class="balanced">处理完成</h6>
-            <h6 ng-switch-when="处理中" class="calm">正在处理</h6>
-            <h6 ng-switch-when="投诉被驳" class="assertive">投诉被驳</h6>
-            <h6 ng-switch-when="待审核" class="calm">正在审核</h6>
-          </div>
-        </div>
+        <h2>{{typeMap[complain.type]}}投诉</h2>
         <p>{{complain.description}}</p>
-        <div class="opt-btn" ng-switch="complain.status">
-          <a ng-switch-when="处理中" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}/handling">查看处理</a>
-          <a ng-switch-when="处理完成" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}/complete">查看处理</a>
-          <button ng-switch-when="投诉被驳" class="button button-small  button-positive" ng-click="resubmit(complain.id)">重新提交</button>
-          <a ng-switch-when="待审核" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}/init">查看投诉</a>
+      </div>
+        <div class="item item-divider comment" ng-switch="complain.status">
+          <a ng-switch-when="处理中" class="button button-small  button-outline button-positive mybutton" ng-href="#/tab/mine/complainDetail/{{complain.id}}/handling">查看处理</a>
+          <a ng-switch-when="处理完成" class="button button-small  button-outline button-positive mybutton" ng-href="#/tab/mine/complainDetail/{{complain.id}}/complete">查看处理</a>
+          <button ng-switch-when="投诉被驳" class="button button-small  button-outline button-positive mybutton" ng-click="resubmit(complain.id)">重新提交</button>
+          <a ng-switch-when="待审核" class="button button-small  button-outline button-positive mybutton" ng-href="#/tab/mine/complainDetail/{{complain.id}}/init">查看投诉</a>
         </div>
-      </ion-item>
     </div>
+
+
+
   </ion-content>
 </ion-view>
 
