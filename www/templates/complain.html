@@ -1,6 +1,6 @@
 <ion-view view-title="我的投诉" >
   <ion-nav-buttons side="right">
-    <button class="button button-small button-clear" ng-click="modal.show()"><p><i class="icon ion-ios-plus-empty" style="font-size: 110%"></i></p></button>
+    <button class="button button-small button-clear" ng-click="create()"><p><i class="icon ion-ios-plus-empty" style="font-size: 110%"></i></p></button>
   </ion-nav-buttons>
   <ion-content class="padding">
     <style>
@@ -48,7 +48,7 @@
       <ion-item class="item-remove-animate item-icon-right pad item-thumbnail-left item-positive-border" type="item-text-wrap">
         <img ng-src="img/logo.jpg">
         <div class="my-row">
-          <div><h2>酒店住宿投诉</h2></div>
+          <div><h2>{{typeMap[complain.type]}}投诉</h2></div>
           <div class="status" ng-switch="complain.status">
             <h6 ng-switch-when="处理完成" class="balanced">处理完成</h6>
             <h6 ng-switch-when="处理中" class="calm">正在处理</h6>
@@ -58,10 +58,10 @@
         </div>
         <p>{{complain.description}}</p>
         <div class="opt-btn" ng-switch="complain.status">
-          <a ng-switch-when="处理中" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}">查看处理</a>
-          <a ng-switch-when="处理完成" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}">查看处理</a>
-          <button ng-switch-when="投诉被驳" class="button button-small  button-positive" ng-click="modal.show()">重新提交</button>
-          <a ng-switch-when="待审核" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}">查看投诉</a>
+          <a ng-switch-when="处理中" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}/handling">查看处理</a>
+          <a ng-switch-when="处理完成" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}/complete">查看处理</a>
+          <button ng-switch-when="投诉被驳" class="button button-small  button-positive" ng-click="resubmit(complain.id)">重新提交</button>
+          <a ng-switch-when="待审核" class="button button-small  button-positive" ng-href="#/tab/mine/complainDetail/{{complain.id}}/init">查看投诉</a>
         </div>
       </ion-item>
     </div>

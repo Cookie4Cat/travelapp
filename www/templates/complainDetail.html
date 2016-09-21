@@ -1,51 +1,40 @@
 <ion-view view-title="">
   <ion-nav-buttons side="right">
-    <button class="button button-small button-clear" ng-click="show()"><p><i class="icon ion-navicon" style="font-size: 110%"></i></p></button>
+    <button ng-if="showDropDown" class="button button-small button-clear" ng-click="show()"><p><i class="icon ion-navicon" style="font-size: 110%"></i></p></button>
   </ion-nav-buttons>
   <ion-nav-title>
     <i class="icon" style="letter-spacing: 3px;font-size:110%">投诉详情</i>
   </ion-nav-title>
   <ion-content class="padding">
-    <div style="margin-bottom: 3%;">
-      <div class="col-25" style="background-color: darkgray;border-radius: 7px 7px 7px 7px;text-align: center;margin-left: 37%"><p style="font-size: 50%">09-09 19:30</p></div>
-      <div class=" col-100" style="border-radius: 5px 5px 5px 5px;padding: 3%;background-color: rgb(255,102,0) ">
-        <p style="color:white;font-size: 122%;">顾客意见反馈</p>
-        <div class="col 100" style="border-top: 1px solid white;">
-          <p style="color:white;font-size: 105%;margin-left:-1%;margin-top:2%">我是一个热爱旅游的人，去过很多景区，但是从来没有一个景区像这样对待我，卖票的人态度非常地不好，这让我很难过，我会让我的朋友们以后也不要来这里了。</p>
+
+    <div style="margin-bottom: 3%;" ng-repeat="complaint in complaints">
+      <div ng-if="complaint.userId == userId">
+        <div class="col-25" style="background-color: darkgray;border-radius: 7px 7px 7px 7px;text-align: center;margin-left: 37%"><p style="font-size: 50%">{{complaint.create_at}}</p></div>
+        <div class=" col-100" style="border-radius: 5px 5px 5px 5px;padding: 3%;background-color: rgb(255,102,0) ">
+          <p style="color:white;font-size: 122%;">游客投诉信息</p>
+          <div class="col 100" style="border-top: 1px solid white;">
+            <p style="color:white;font-size: 105%;margin-left:-1%;margin-top:2%">{{complaint.description}}</p>
+          </div>
+          <div ng-repeat="img in complaint.comImgs" class="col-20" height="56px" style="margin-top: 4%;">
+            <img ng-src="{{resourceUrl + img.imageUrl}}" class="col-100" height="56px" style="margin-top: 4%;margin-left:1%">
+          </div>
+        </div>
+      </div>
+      <div ng-if="complaint.userId!=userId">
+        <div style="margin-bottom: 3%;">
+          <div class="col-25" style="background-color: darkgray;border-radius: 7px 7px 7px 7px;text-align: center;margin-left: 37%"><p style="font-size: 50%">{{complaint.create_at}}</p></div>
+          <div class="positive-bg col-100" style="border-radius: 5px 5px 5px 5px;padding: 3% ">
+            <p style="color:white;font-size: 122%;;">处理人员回复</p>
+            <div class="col 100" style="border-top: 1px solid white;">
+              <p style="color:white;font-size: 105%;margin-left:-1%;margin-top:2%">{{complaint.description}}</p>
+            </div>
+            <div ng-repeat="img in complaint.comImgs" class="col-20" height="56px" style="margin-top: 4%;">
+              <img ng-src="{{resourceUrl + img.imageUrl}}" class="col-100" height="56px" style="margin-top: 4%;margin-left:1%">
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-
-    <div style="margin-bottom: 3%;">
-    <div class="col-25" style="background-color: darkgray;border-radius: 7px 7px 7px 7px;text-align: center;margin-left: 37%"><p style="font-size: 50%">09-09 19:50</p></div>
-    <div class="positive-bg col-100" style="border-radius: 5px 5px 5px 5px;padding: 3% ">
-      <p style="color:white;font-size: 122%;;">客服正在审理申请</p>
-      <div class="col 100" style="border-top: 1px solid white;">
-        <p style="color:white;font-size: 105%;margin-left:-1%;margin-top:2%">客服已经同意了本次投诉的申请，正在审理。</p>
-      </div>
-    </div>
-    </div>
-
-    <div style="margin-bottom: 3%;position: relative;">
-      <div class="col-25" style="background-color: darkgray;border-radius: 7px 7px 7px 7px;text-align: center;margin-left: 37%"><p style="font-size: 50%">09-09 19:50</p></div>
-      <div class="positive-bg col-100" style="border-radius: 5px 5px 5px 5px;padding: 3% ">
-        <p style="color:white;font-size: 122%;;">客服正在审理申请</p>
-        <div class="col 100" style="border-top: 1px solid white;">
-          <p style="color:white;font-size: 105%;margin-left:-1%;margin-top:2%">客服已经同意了本次投诉的申请，正在审理。</p>
-        </div>
-      </div>
-    </div>
-    <div style="margin-bottom: 3%;">
-      <div class="col-25" style="background-color: darkgray;border-radius: 7px 7px 7px 7px;text-align: center;margin-left: 37%"><p style="font-size: 50%">09-09 19:50</p></div>
-      <div class="positive-bg col-100" style="border-radius: 5px 5px 5px 5px;padding: 3% ">
-        <p style="color:white;font-size: 122%;;">客服正在审理申请</p>
-        <div class="col 100" style="border-top: 1px solid white;">
-          <p style="color:white;font-size: 105%;margin-left:-1%;margin-top:2%">客服已经同意了本次投诉的申请，正在审理。</p>
-        </div>
-      </div>
-    </div>
-
   </ion-content>
 
 </ion-view>

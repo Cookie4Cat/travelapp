@@ -1,8 +1,8 @@
 angular.module('starter.controllers', ['ionic.rating'])
 
   //静态变量，后端API前缀
-  .constant('baseUrl','http://113.55.77.231:8088/v1/com/traveller/')
-
+  .constant('baseUrl','http://localhost:8088/v1/com/traveller/')
+  .constant('resourceUrl','http://localhost:8088/')
   .controller('DashCtrl', function ($scope, $ionicModal, $rootScope) {
     $rootScope.contact = '邓博文';
     $rootScope.isset = function () {
@@ -84,58 +84,127 @@ angular.module('starter.controllers', ['ionic.rating'])
 
   })
 
-  .controller('complainModalCtrl', function ($scope, $stateParams, $rootScope, $ionicActionSheet) {
+  .controller('complainModalCtrl', function ($ionicPopup, baseUrl, $http, $scope, $stateParams, $rootScope, $ionicActionSheet) {
 
 
-    $scope.test = $rootScope.contact;
-
-    //投诉类别选择逻辑
-    //伪数据
-    $scope.typeList = ['酒店住宿', '餐饮服务', '旅游景区', '其它投诉'];
-    $scope.types = [];
-    //注意i有可能污染作用域
-    for (var i = 0; i < $scope.typeList.length / 2; i++) {
-      $scope.types.push($scope.typeList.slice(i * 2, (i + 1) * 2));
-    }
-    console.log($scope.types);
-
+    //获取投诉类别
+    $http.get(baseUrl + "complaints/types")
+      .success(function (resp) {
+        $scope.typeList = resp;
+        $scope.types = [];
+        for (var i = 0; i < $scope.typeList.length / 2; i++) {
+          $scope.types.push($scope.typeList.slice(i * 2, (i + 1) * 2));
+        }
+      }).error(function (resp) {
+      alert("数据加载失败");
+    });
+    //选择投诉类别
     $scope.selectType = function (type) {
       $scope.currentType = type;
     };
 
-
-
-
-    //----------------图片上传相关------------------
+    //如果重新提交
+    $scope.$on('modal.shown', function() {
+      if($rootScope.submitState == 'resubmit'){
+        $http.get(baseUrl + 'complaints/' + $rootScope.resubmitComId)
+          .success(function (resp) {
+            $scope.complaint = resp;
+            for(i in $scope.typeList){
+              if($scope.typeList[i]['typeId'] == resp.type){
+                $scope.currentType = $scope.typeList[i];
+              }
+            }
+          });
+      }
+    });
     $scope.complaint = {};
-
+    //点击提交按钮
     $scope.submitComplaint = function () {
-      //先提交基本内容
-      //跟据返回值循环提交图片
+      if($rootScope.submitState == 'create'){
+        $scope.complaint.replyComId = 0;
+        $scope.complaint.userId = 1; //伪数据
+        create();
+      }else if($rootScope.submitState == 'resubmit'){
+        $scope.complaint.replyComId = 0;
+        $scope.complaint.userId = 1;
+        resubmit();
+      }else if($rootScope.submitState == 'reply'){
+        $scope.complaint.replyComId = $rootScope.replyComId;
+        $scope.complaint.userId = 1;
+        reply();
+      }
     };
 
+    //创建
+    function create() {
+      //数据处理失败返回
+      if(!handleData()) return;
+      //提交到服务器
+      submit(baseUrl + 'complaints', $scope.complaint);
+    }
+
+    //重新提交
+    function resubmit() {
+      if(!handleData()) return;
+      submit(baseUrl + 'complaints/' + $scope.complaint.id, $scope.complaint);
+    }
+
+    //回复
+    function reply() {
+      if(!handleData()) return;
+      submit(baseUrl + 'complaints/' + $scope.complaint.replyComId + '/reply', $scope.complaint);
+    }
+
+    //提交数据到服务器
+    function submit(url,complaint) {
+      $http.post(url,complaint)
+        .success(function (resp) {
+          if(resp.id){
+            for(i in $scope.images){
+              upload($scope.images[i],resp.id);
+            }
+          }
+          $scope.showInfoPopup("提交成功！");
+          $scope.modal.hide();
+        });
+    }
+
+    //处理数据
+    function handleData() {
+      if($scope.currentType){
+        $scope.complaint.type = $scope.currentType['typeId'];
+      }
+      //验证字段是否为空
+      return true;
+    }
+
+    //显示评价成功的信息
+    $scope.showInfoPopup = function(info) {
+      var alertPopup = $ionicPopup.alert({
+        title: info,
+        template: ''
+      });
+    };
+
+    /*----------------图片上传相关-----------------*/
+
+    //图片上传
     function upload(fileURL,comId) {
-      var success = function(r) {
-        var response = JSON.parse(r.response);
-        $scope.message.push(JSON.parse(r));
-        if(response.datas.state){
-          alert("修改成功");
-        }else {
-          alert(response.datas.error);
-        }
+      var success = function (r) {
+        //success
       };
       var fail = function(error) {
-        $scope.message.push('上传失败');
+        //fail
       };
-
       var options = new FileUploadOptions();
-      options.fileKey = "pic";
+      options.fileKey = "file";
       options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
       options.mimeType = "image/jpeg";
-
       var ft = new FileTransfer();
       ft.upload(fileURL, encodeURI(baseUrl + 'complaints/' + comId + '/images'), success, fail, options);
     }
+
+    $scope.images = [];
 
     function cameraSuccess(imageURI) {
       $scope.images.push(imageURI);
@@ -146,6 +215,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       console.log('选择图片失败');
     }
 
+    //原生选择
     $scope.selectImg = function () {
       var hideSheet = $ionicActionSheet.show({
         buttons: [{
@@ -167,6 +237,8 @@ angular.module('starter.controllers', ['ionic.rating'])
       });
     };
 
+    /*----------------图片上传相关-----------------*/
+
   })
   .controller('ComplainCtrl', function (baseUrl,$scope, $http, $stateParams, $ionicModal, $ionicLoading, $rootScope) {
 
@@ -186,20 +258,80 @@ angular.module('starter.controllers', ['ionic.rating'])
       focusFirstInput: true
     });
 
-    $http.get(baseUrl + '1/complaints')
-      .success(function (reponse) {
-        console.log(reponse);
-        $ionicLoading.hide();
-        $scope.complains = reponse;
+    //获取投诉类型
+    $http.get(baseUrl + "complaints/types")
+      .success(function (resp) {
+        $scope.typeMap = {};
+        for(i in resp){
+          $scope.typeMap[resp[i].typeId] = resp[i].typeName;
+        }
       });
 
+    //获取投诉信息列表
+    getComplaints(1);
 
-    $scope.lalala = '终于到第三级了'
+    //如果模态框关闭，重新获取
+    $scope.$on('modal.hidden', function() {
+      getComplaints(1);
+    });
+
+    //获取投诉信息列表
+    function getComplaints(userId) {
+      $http.get(baseUrl + userId + '/complaints')
+        .success(function (resp) {
+          $ionicLoading.hide();
+          $scope.complains = resp;
+        });
+    }
+
+    //重新提交
+    $scope.resubmit = function (comId) {
+      $rootScope.submitState = "resubmit";
+      $rootScope.resubmitComId = comId;
+      $scope.modal.show();
+    };
+
+    //创建
+    $scope.create = function () {
+      $rootScope.submitState = "create";
+      $scope.modal.show();
+    };
 
   })
 
-  .controller('complainDetailCtrl', function (baseUrl, $scope, $http, $ionicPopup, $stateParams, $ionicModal, $ionicActionSheet, $timeout) {
+  .controller('complainDetailCtrl', function ($rootScope, resourceUrl, baseUrl, $scope, $http, $ionicPopup, $stateParams, $ionicModal, $ionicActionSheet, $timeout) {
 
+    $scope.resourceUrl = resourceUrl;
+
+    //获取路径参数
+    var status = $stateParams['status'];
+    var comId = $stateParams['comId'];
+
+    //伪数据
+     $scope.userId = 1;
+
+    if(status == 'init'){
+      $scope.showDropDown = false;
+    }else if(status == 'complete'){
+      $scope.showDropDown = false;
+    }else{
+      $scope.showDropDown = false;
+    }
+
+    loadData();
+    //加载数据
+    function loadData() {
+      $http.get(baseUrl + 'complaints/' + comId + '/interaction')
+        .success(function (resp) {
+          console.log(resp);
+          $scope.complaints = resp;
+          if(resp[resp.length-1].userId == $scope.userId){
+            $scope.showDropDown = false;
+          }else if(status == 'handling'){
+            $scope.showDropDown = true;
+          }
+        });
+    }
     //模态框
     $ionicModal.fromTemplateUrl('complainModal.html', function (modal) {
       $scope.modal = modal;
@@ -208,8 +340,10 @@ angular.module('starter.controllers', ['ionic.rating'])
       focusFirstInput: true
     });
 
-    //获取投诉的详细信息
-    var comId = $stateParams['comId'];
+    //重新加载
+    $scope.$on('modal.hidden', function() {
+      loadData();
+    });
 
     //显示评分popup
     $scope.showPopup2 = function () {
@@ -274,6 +408,8 @@ angular.module('starter.controllers', ['ionic.rating'])
         ],
         buttonClicked: function (index) {
           if (index == 0) {
+            $rootScope.submitState = "reply";
+            $rootScope.replyComId = $scope.complaints[$scope.complaints.length-1].id;
             $scope.modal.show();
             hideSheet();
           } else if (index == 1) {

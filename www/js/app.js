@@ -104,7 +104,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
     .state('tab.personal-detail', {
-      url: '/mine/personalDetail/:userid',
+      url: '/mine/personalDetail/:userId',
       views: {
         'tab-mine': {
           templateUrl: 'templates/personalDetail.html',
@@ -113,7 +113,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
     .state('tab.complain', {
-      url: '/mine/complain/:userid',
+      url: '/mine/complain/:userId',
       views: {
         'tab-mine': {
           templateUrl: 'templates/complain.html',
@@ -122,7 +122,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
     .state('tab.complainDetail', {
-      url: '/mine/complainDetail/:comId',
+      url: '/mine/complainDetail/:comId/:status',
       views: {
         'tab-mine': {
           templateUrl: 'templates/complainDetail.html',

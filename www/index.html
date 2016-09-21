@@ -90,10 +90,9 @@
         <div ng-repeat="typeRow in types">
           <div class="row" style="margin-top:2%;margin-bottom: 2%">
             <div class="choose col-33 col-offset-10" ng-repeat="type in typeRow" ng-click="selectType(type)"
-                 ng-class="{true:'choose2',false:'choose'}[type==currentType]">{{type}}</div>
+                 ng-class="{true:'choose2',false:'choose'}[type==currentType]">{{type.typeName}}</div>
           </div>
         </div>
-
         <label class="item item-input item-stacked-label">
           <span class="input-label positive">文字描述</span>
           <textarea rows="4" cols="20" type="text" placeholder="请输入您对于本次投诉的描述。" ng-model="complaint.description"/>
@@ -101,17 +100,10 @@
         <label class="item item-input item-stacked-label">
           <span class="input-label positive">图像描述</span>
           <div class="row">
-            <div ng-repeat="item in items" class="col-20" height="56px" style="margin-top: 4%;">
-              <img ng-src="{{item}}" class="col-100" height="56px" style="margin-top: 4%;margin-left:1%">
+            <div ng-repeat="img in images" class="col-20" height="56px" style="margin-top: 4%;">
+              <img ng-src="{{img}}" class="col-100" height="56px" style="margin-top: 4%;margin-left:1%">
             </div>
-          <button class="icon ion-plus button-clear col-20"  ng-click="addImage()" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;margin-left:1%;padding-bottom:16%;color:darkgray;border-color: darkgray "></button>
-          </div>
-        </label>
-
-        <label class="item item-input item-stacked-label">
-        <span class="input-label positive">视频描述</span>
-          <div class="row">
-            <i class="icon ion-plus col-20"  ng-click="addImg()" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;padding-left: 6%;padding-right: 5%;padding-bottom:2%;color:darkgray;border-color: darkgray "></i>
+          <button class="icon ion-plus button-clear col-20"  ng-click="selectImg()" style="font-size:200%;border: 1px solid black;margin-top: 4%;margin-bottom: 3%;margin-left:1%;padding-bottom:16%;color:darkgray;border-color: darkgray "></button>
           </div>
         </label>
         <button class="button button-block  button-positive" ng-click="submitComplaint()" style="margin-top:3%;color:white;font-family: 微软雅黑;width: 92%;margin-left: 4%">提交投诉</button>
