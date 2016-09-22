@@ -22,7 +22,7 @@ angular.module('starter.controllers', ['ionic.rating'])
   //静态变量，后端API前缀
   .constant('baseUrl','http://113.55.24.209:8088/v1/com/traveller/')
   .constant('resourceUrl','http://localhost:8088/')
-  .controller('DashCtrl', function ($scope, $ionicModal, $rootScope) {
+  .controller('DashCtrl', function ($scope, $ionicModal, $rootScope,$state) {
     $rootScope.contact = '邓博文';
     $rootScope.isset = function () {
       var msg = sessionStorage.getItem("userName");
@@ -50,6 +50,16 @@ angular.module('starter.controllers', ['ionic.rating'])
        $scope.isClick=false;
      }
     }
+
+    $scope.dashDetail=function(){
+      $state.go('tab.dashDetail',{"attractionSiteId":'测试参数'});
+    }
+  })
+
+
+  .controller('dashDetailCtrl',function($scope,$stateParams){
+    $scope.big=$stateParams.attractionSiteId
+
   })
 
   .controller('ChatsCtrl', function ($scope, Chats) {
