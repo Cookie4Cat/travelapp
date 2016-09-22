@@ -1,16 +1,60 @@
 <ion-view view-title="发现" hide-tabs="true">
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-src="{{chat.face}}">
-        <h2>{{chat.name}}</h2>
-        <p>{{chat.lastText}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+  <style>
+    .bottomOne{
+      margin-bottom: -200%;
+    }
+    .bottomTwo{
 
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
+    }
+    .MyA h2{
+      margin-top: 3%;
+    }
+    .MyA h4{
+      margin-top: 5%;
+    }
+    .MyA h5{
+      margin-top: 14%;
+    }
+  </style>
+  <ion-content>
+    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
+      <img src="img/Attraction1.jpg" >
+      <h2>秋末，初冬，不一样的九寨</h2>
+      <p>时光匆匆，就这般不留一丝痕迹地前行者···</p>
+      <h4>出发吧文艺社</h4>
+      <h5 class="badge positive-bg stable">置顶</h5>
+    </a>
+
+    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
+      <img src="img/Attraction3.jpg" >
+      <h2>给自由一个借口</h2>
+      <p>总想着来一次说走就走的旅行···</p>
+      <h4>出发吧文艺社</h4>
+      <h5 class="badge positive-bg stable">置顶</h5>
+    </a>
+
+    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
+      <img src="img/Attraction2.jpg" >
+      <h2>雾霾之外，呼吸畅快</h2>
+      <p>我和朋友兴致勃勃地踏上了深圳到武夷山的动车···</p>
+      <h4>出发公众号</h4>
+      <h5 class="badge balanced-bg stable">独家</h5>
+    </a>
+
+    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
+      <img src="img/Attraction4.jpg" >
+      <h2>这美丽的香格里拉</h2>
+      <p>这可爱的香格里拉，我深深地爱上了它···</p>
+      <h4>出发公众号</h4>
+      <h5 class="badge assertive-bg stable">热点</h5>
+    </a>
+
+    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
+      <img src="img/Attraction5.jpg" >
+      <h2>走进梦中的普罗旺斯</h2>
+      <p>很久很久以前，我有一个紫色的梦···</p>
+      <h4>出发吧文艺社</h4>
+      <h5 class="badge balanced-bg stable">独家</h5>
+    </a>
   </ion-content>
 </ion-view>

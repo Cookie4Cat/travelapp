@@ -74,12 +74,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+
+
+    .state('tab.chatDetail', {
+      url: '/chats/chatDetail/:chatId',
       views: {
         'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+          templateUrl: 'templates/chatDetail.html',
+          controller: 'chatDetailCtrl'
         }
       }
     })

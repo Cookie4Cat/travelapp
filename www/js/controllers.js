@@ -66,11 +66,6 @@ angular.module('starter.controllers', ['ionic.rating'])
       Chats.remove(chat);
     };
   })
-
-  .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
-    $scope.chat = Chats.get($stateParams.chatId);
-  })
-
   .controller('AccountCtrl', function ($scope,$state) {
 
 
@@ -532,6 +527,21 @@ angular.module('starter.controllers', ['ionic.rating'])
       }
     ]
   })
+
+.controller('chatDetailCtrl',function ($scope,$stateParams){
+    $scope.isTrue=false;
+    $scope.likeNum=88;
+
+    $scope.check=function(){
+      $scope.isTrue=!$scope.isTrue;
+      if ($scope.isTrue==true){
+        $scope.likeNum++;
+      }else if($scope.isTrue==false){
+        $scope.likeNum--;
+      }
+   }
+    $scope.chatId=$stateParams.chatId;
+})
 
   //.controller('tabCtrl',function($scope){
   //  $scope.test='aaaaaaaa';
