@@ -1,17 +1,17 @@
 <ion-view view-title="服务">
   <div class="bar bar-subheader bar-stable">
     <div class="button-bar">
-      <a class="button " ng-repeat="x in items" ng-bind="x.name"  ng-class="{'button-clear':checkClick[$index],'button-balanced':notCheck[$index]}" ng-click="check($index)"></a>
+      <a class="button " ng-repeat="x in items" ng-bind="x.name"  ng-class="{'button-clear':checkClick[$index],'button-positive':notCheck[$index]}" ng-click="check($index)"></a>
 
     </div>
   </div>
 
   <ion-content class="has-subheader">
 
-    <div ng-include="'templates/account-hotel.html'" style="border:1px solid red;margin-top: 2px;" ng-show="notCheck[0]"></div>
-    <div ng-include="'templates/account-canteen.html'" style="border:1px solid red;margin-top: 2px;" ng-show="notCheck[1]"></div>
-    <div ng-include="'templates/account-performance.html'" style="border:1px solid red;margin-top: 2px;" ng-show="notCheck[2]"></div>
-    <div ng-include="'templates/account-traffic.html'" style="border:1px solid red;margin-top: 2px;" ng-show="notCheck[3]"></div>
-    <div ng-include="'templates/account-announcement.html'" style="border:1px solid red;margin-top: 2px;" ng-show="notCheck[4]"></div>
+    <div ng-include="'templates/account-hotel.html'"  ng-show="notCheck[0]"></div>
+    <div ng-include="'templates/account-performance.html'"  ng-show="notCheck[1]"></div>
+    <div ng-include="'templates/account-canteen.html'"  ng-show="notCheck[2]"></div>
+    <div ng-include="'templates/account-traffic.html'"  ng-show="notCheck[3]"></div>
+    <div ng-include="'templates/account-announcement.html'" ng-show="notCheck[4]"></div>
   </ion-content>
 </ion-view>

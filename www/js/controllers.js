@@ -82,8 +82,8 @@ angular.module('starter.controllers', ['ionic.rating'])
 
     $scope.items=[
       {name:'酒店'},
-      {name:'餐饮'},
       {name:'演出'},
+      {name:'餐饮'},
       {name:'路况'},
       {name:'公告'},
     ]
