@@ -1,7 +1,27 @@
 
 <div ng-controller="announcementlCtrl">
-  <div class="row">
-    <div class="col text-center" ng-repeat="x in tests">{{x.name}}</div>
+  <style>
+    .myOwnBadge3{
+      border-radius: 0px 10px 0px 10px ;
+      padding-bottom: 1%;
+      font-family: 微软雅黑;
+      font-weight: bolder;
+      padding-left: 3%;
+      text-align: center;
+    }
+  </style>
+  <div class="list card">
+    <div class="item">
+      <h2 class="myOwnBadge3 positive-bg light ">关于调整九寨沟售票时间的公告</h2>
+    </div>
+    <div class="item">
+      <p>作者：票务处<span style="float: right;">2016-07-14 09:49</span></p>
+    </div>
+    <div class="item item-body">
+      九寨沟景区售票时间调整如下：
+      <br>售票时间和进景区时间为早上7:00至下午16:00。
+      <br>售票时间和进景区时间调整为您们带来的不便，请谅解。
+    </div>
   </div>
 </div>
 
