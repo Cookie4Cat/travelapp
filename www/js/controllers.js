@@ -22,7 +22,7 @@ angular.module('starter.controllers', ['ionic.rating'])
   //静态变量，后端API前缀
   .constant('baseUrl','http://113.55.24.209:8088/v1/com/traveller/')
   .constant('resourceUrl','http://localhost:8088/')
-  .controller('DashCtrl', function ($scope, $ionicModal, $rootScope,$state) {
+  .controller('DashCtrl', function ($scope, $ionicModal, $rootScope,$state,$ionicViewSwitcher) {
     $rootScope.contact = '邓博文';
     $rootScope.isset = function () {
       var msg = sessionStorage.getItem("userName");
@@ -38,6 +38,12 @@ angular.module('starter.controllers', ['ionic.rating'])
       animation: 'slide-in-up',
       focusFirstInput: true
     })
+
+    $rootScope.goAccount=function(id){
+      $ionicViewSwitcher.nextDirection('forward');
+      $state.go('tab.account',{"attractionId":id});
+    }
+
 
     $scope.isntClick=true;
     $scope.isClick=false;
@@ -76,10 +82,11 @@ angular.module('starter.controllers', ['ionic.rating'])
       Chats.remove(chat);
     };
   })
-  .controller('AccountCtrl', function ($scope,$state) {
+  .controller('AccountCtrl', function ($scope,$state,$stateParams) {
 
+    $scope.attractionId=$stateParams.attractionId;
 
-
+    console.log($scope.attractionId);
     $scope.items=[
       {name:'酒店'},
       {name:'演出'},
@@ -103,7 +110,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       }
     }
 
-    $scope.check(0);
+    $scope.check($scope.attractionId);
 
 
 

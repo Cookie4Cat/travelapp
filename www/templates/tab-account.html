@@ -1,4 +1,4 @@
-<ion-view view-title="服务">
+<ion-view view-title="服务" >
   <div class="bar bar-subheader bar-stable">
     <div class="button-bar">
       <a class="button " ng-repeat="x in items" ng-bind="x.name"  ng-class="{'button-clear':checkClick[$index],'button-positive':notCheck[$index]}" ng-click="check($index)"></a>
@@ -13,5 +13,6 @@
     <div ng-include="'templates/account-canteen.html'"  ng-if="notCheck[2]"></div>
     <div ng-include="'templates/account-traffic.html'"  ng-if="notCheck[3]"></div>
     <div ng-include="'templates/account-announcement.html'" ng-if="notCheck[4]"></div>
+
   </ion-content>
 </ion-view>
