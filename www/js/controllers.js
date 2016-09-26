@@ -132,7 +132,9 @@ angular.module('starter.controllers', ['ionic.rating'])
     $scope.userid = $stateParams;
     $scope.testinfor = "爬爬爬爬";
   })
-
+  .controller('aboutMineCtrl',function($scope,$stateParams){
+    $scope.test='success';
+  })
   .controller('testinforCtrl', function ($scope, $stateParams) {
     $scope.test = $stateParams;
   })

@@ -123,6 +123,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+
+    .state('tab.aboutMine',{
+      url:'/mine/aboutMine/',
+      views:{
+        'tab-mine':{
+          templateUrl:'templates/aboutMine.html',
+          controller:'aboutMineCtrl'
+        }
+      }
+    })
     .state('tab.complainDetail', {
       url: '/mine/complainDetail/:comId/:status',
       views: {
