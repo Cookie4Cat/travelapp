@@ -10,17 +10,15 @@
       text-align: center;
     }
   </style>
-  <div class="list card">
+  <div class="list card" ng-repeat="e in emergencies">
     <div class="item">
-      <h2 class="myOwnBadge3 positive-bg light ">关于调整九寨沟售票时间的公告</h2>
+      <h2 class="myOwnBadge3 positive-bg light ">{{e['title']}}</h2>
     </div>
     <div class="item">
-      <p>作者：票务处<span style="float: right;">2016-07-14 09:49</span></p>
+      <p>作者：{{e['author']}}<span style="float: right;">{{e['createAt'] | date:'yy-MM-dd hh-mm'}}</span></p>
     </div>
     <div class="item item-body">
-      九寨沟景区售票时间调整如下：
-      <br>售票时间和进景区时间为早上7:00至下午16:00。
-      <br>售票时间和进景区时间调整为您们带来的不便，请谅解。
+      {{e['content']}}
     </div>
   </div>
 </div>

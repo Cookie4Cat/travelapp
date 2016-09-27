@@ -109,9 +109,12 @@ angular.module('starter.controllers', ['ionic.rating'])
   .controller('AccountCtrl', function ($scope, $stateParams, $http, $state, $rootScope,resourceUrl,baseUrl, Pager) {
 
     init();
+    
     function init() {
       $scope.hotels = [];
+      $scope.emergencies = [];
       getHotels(1);
+      getAnnouncements(1);
       $scope.baseImgUrl = resourceUrl;
     }
 
@@ -123,7 +126,15 @@ angular.module('starter.controllers', ['ionic.rating'])
         })
     }
 
+    function getAnnouncements(page){
+      $http.get(baseUrl + 'emgy/traveler/scenic/' + 17 + '/emergencies' + Pager.pageParams(page,4))
+          .success(function (resp) {
+            $scope.emergencies = $scope.emergencies.concat(resp);
+          });
+    }
+
     $scope.attractionId = $stateParams.attractionId;
+
     $scope.items = [
       {name: '酒店'},
       {name: '演出'},
@@ -133,7 +144,6 @@ angular.module('starter.controllers', ['ionic.rating'])
     ];
     $scope.checkClick = [];
     $scope.notCheck = [];
-
 
     $scope.check = function ($index) {
       for (i = 0; i < 5; i++) {
@@ -147,8 +157,6 @@ angular.module('starter.controllers', ['ionic.rating'])
       }
     };
     $scope.check($scope.attractionId);
-
-
     $scope.settings = {
       enableFriends: true
     };
