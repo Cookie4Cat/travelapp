@@ -109,12 +109,16 @@ angular.module('starter.controllers', ['ionic.rating'])
   .controller('AccountCtrl', function ($scope, $stateParams, $http, $state, $rootScope,resourceUrl,baseUrl, Pager) {
 
     init();
-    
+
     function init() {
       $scope.hotels = [];
       $scope.emergencies = [];
+      $scope.performances = [];
+      $scope.canteens = [];
       getHotels(1);
       getAnnouncements(1);
+      getPerformances(1);
+      getCanteens(1);
       $scope.baseImgUrl = resourceUrl;
     }
 
@@ -131,6 +135,20 @@ angular.module('starter.controllers', ['ionic.rating'])
           .success(function (resp) {
             $scope.emergencies = $scope.emergencies.concat(resp);
           });
+    }
+
+    function getPerformances(page) {
+      $http.get(baseUrl + 'ent/traveler/scenic/' + 17 + '/performances' + Pager.pageParams(page,2))
+        .success(function (resp) {
+          $scope.performances = $scope.performances.concat(resp);
+        })
+    }
+    
+    function getCanteens(page) {
+      $http.get(baseUrl + 'cant/traveler/scenic/' + 17 + '/canteens' + Pager.pageParams(page,2))
+        .success(function (resp) {
+          $scope.canteens = $scope.canteens.concat(resp);
+        })
     }
 
     $scope.attractionId = $stateParams.attractionId;

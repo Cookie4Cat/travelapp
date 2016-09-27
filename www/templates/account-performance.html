@@ -16,38 +16,21 @@
       padding-left: 4%;
     }
   </style>
-  <div class="card">
+  <div class="card" ng-repeat="p in performances">
     <div class="item">
-        <h2 style="text-align: center">九寨沟景区演出时间表</h2>
+        <h2 style="text-align: center">景区演出时间表</h2>
     </div>
     <div class="item item-image">
       <ion-slide-box does-continue="true" auto-play="true">
-      <ion-slide>
-        <div class="box blue"> <img src="img/performance1.jpg" width="100%" height="200px"></div>
-      </ion-slide>
-      <ion-slide>
-        <div class="box yellow"> <img src="img/performance2.jpg" width="100%" height="200px"></div>
-      </ion-slide>
-      <ion-slide>
-        <div class="box yellow"> <img src="img/performance3.jpg" width="100%" height="200px"></div>
+      <ion-slide ng-repeat="img in p['images']">
+        <div class="box blue"> <img ng-src="{{baseImgUrl + img['url']}}" width="100%" height="200px"></div>
       </ion-slide>
       </ion-slide-box>
     </div>
     <div class="item">
-        <div class="row dashDetailDiv2"><h2 class="positive-bg light col-25 myOwnBadge2">藏谜</h2><p class="col-75 myContent2">18:00,20:00（每晚演出两场）</p></div>
+        <div class="row dashDetailDiv2"><h2 class="positive-bg light col-25 myOwnBadge2">{{p['name']}}</h2><p class="col-75 myContent2">{{p['timeFrame'] }}</p></div>
         <div class="item item-body">
-          &nbsp; &nbsp; &nbsp; &nbsp;演出地点在九寨沟藏迷大剧院，融合了著名舞蹈家杨丽萍老师和藏族歌手容中尔甲的多年心血，史诗般的传奇，剧院修的不错，大气，整体还好把，舞跳的比较卖力，整个剧情是围绕朝圣展开，很值得一看。
-        </div>
-
-        <div class="row dashDetailDiv2"><h2 class="positive-bg light col-25 myOwnBadge2">九寨千古情</h2><p class="col-75 myContent2">17:30,19:00,20:30（每天三场）</p></div>
-
-        <div class="item item-body">
-          &nbsp; &nbsp; &nbsp; &nbsp;《九寨千古情》是全球首创的5D剧院实景演出，也是迄今为止四川省投资最巨、科技含量最高、藏羌原生态文化容量最大的旅游演艺秀。
-          <br> &nbsp; &nbsp; &nbsp; &nbsp;演出分为《藏密》、《古羌战歌》、《汉藏和亲》、《大爱无疆》、《九寨传说》、《天地吉祥》等场。优美而神秘的藏羌歌舞带你进入穿越时空之旅，辉煌的大唐皇宫展现了文成公主汉藏和亲的壮举。全球首创的5D实景和高科技手段再现了阿坝州512汶川大地震的惨烈场面，山崩地裂、房倒屋塌，整个剧院和数千个座位强烈震动，3000立方大洪水“排山倒海”般顷刻而下……一个个真实的故事、一幅幅感人的画面展现了中华民族万众一心抗震救灾的大爱无疆。
-          <br> &nbsp; &nbsp; &nbsp; &nbsp;1个小时演出中，300位演员、360度全景演出、400套舞台机械与观众全方位互动，用声光电气的高科技与上天入地的空间创意，完全打破艺术类型的界限，视觉盛宴，极度震撼！
-          <br> &nbsp; &nbsp; &nbsp; &nbsp;地点：位于阿坝州漳扎镇九寨宋城旅游区，距离九寨国家风景区5分钟车程，的士大巴招手即停。
-          九寨千古情景区入园票160元、大型歌舞《九寨千古情》演出票190元。
-          优惠套票260元。 （1米2以下儿童免票）。
+          &nbsp; &nbsp; &nbsp; &nbsp;{{p['content']}}
         </div>
     </div>
   </div>
