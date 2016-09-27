@@ -1,28 +1,35 @@
 angular.module('starter.controllers', ['ionic.rating'])
 
-.directive('hideTabs', function($rootScope) {
-  return {
-    restrict: 'A',
-    link: function(scope, element, attributes) {
-      scope.$on('$ionicView.beforeEnter', function() {
-        scope.$watch(attributes.hideTabs, function(value){
-          $rootScope.hideTabs = value;
+  .directive('hideTabs', function ($rootScope) {
+    return {
+      restrict: 'A',
+      link: function (scope, element, attributes) {
+        scope.$on('$ionicView.beforeEnter', function () {
+          scope.$watch(attributes.hideTabs, function (value) {
+            $rootScope.hideTabs = value;
+          });
         });
-      });
 
-      scope.$on('$ionicView.beforeLeave', function() {
-        $rootScope.hideTabs = false;
-      });
-    }
-  };
-})
+        scope.$on('$ionicView.beforeLeave', function () {
+          $rootScope.hideTabs = false;
+        });
+      }
+    };
+  })
 
 
 
   //静态变量，后端API前缀
-  .constant('baseUrl','http://113.55.24.209:8088/v1/com/traveller/')
-  .constant('resourceUrl','http://localhost:8088/')
-  .controller('DashCtrl', function ($scope, $ionicModal, $rootScope,$state,$ionicViewSwitcher) {
+  .constant('baseUrl', 'http://localhost:8088/v1/')
+  .constant('resourceUrl', 'http://localhost:8088/')
+  .controller('DashCtrl', function (Pager, baseUrl, resourceUrl,$scope, $http, $ionicModal, $rootScope, $state, $ionicViewSwitcher) {
+    init();
+    function init() {
+      $scope.baseImgUrl = resourceUrl;
+      getScenicList(1);
+      $scope.currentPage = 1;
+    }
+
     $rootScope.contact = '邓博文';
     $rootScope.isset = function () {
       var msg = sessionStorage.getItem("userName");
@@ -37,35 +44,45 @@ angular.module('starter.controllers', ['ionic.rating'])
     }, {
       animation: 'slide-in-up',
       focusFirstInput: true
-    })
+    });
 
-    $rootScope.goAccount=function(id){
+    $rootScope.goAccount = function (id) {
       $ionicViewSwitcher.nextDirection('forward');
-      $state.go('tab.account',{"attractionId":id});
+      $state.go('tab.account', {"attractionId": id});
+    };
+
+    function getScenicList(page) {
+      $http.get(baseUrl + 'scenic/traveler/scenic' + Pager.pageParams(page,4))
+        .success(function (resp) {
+          $scope.scenicList = resp;
+        }).error(function (resp) {
+          alert('数据加载出错');
+      })
     }
 
 
-    $scope.isntClick=true;
-    $scope.isClick=false;
-    $scope.styleClick=function(){
-     if ($scope.isntClick==true){
-       $scope.isntClick=false;
-       $scope.isClick=true;
-     }else if($scope.isntClick==false){
-       $scope.isntClick=true;
-       $scope.isClick=false;
-     }
-    }
+    $scope.isntClick = true;
+    $scope.isClick = false;
+    $scope.styleClick = function () {
+      if ($scope.isntClick == true) {
+        $scope.isntClick = false;
+        $scope.isClick = true;
+      } else if ($scope.isntClick == false) {
+        $scope.isntClick = true;
+        $scope.isClick = false;
+      }
+    };
 
-    $scope.dashDetail=function(){
-      $state.go('tab.dashDetail',{"attractionSiteId":'测试参数'});
+    $scope.dashDetail = function (s) {
+      $rootScope.currentScenic = s;
+      $state.go('tab.dashDetail');
     }
   })
 
 
-  .controller('dashDetailCtrl',function($scope,$stateParams){
-    $scope.big=$stateParams.attractionSiteId
-
+  .controller('dashDetailCtrl', function ($scope, resourceUrl,$rootScope) {
+    $scope.baseImgUrl = resourceUrl;
+    $scope.scenic = $rootScope.currentScenic;
   })
 
   .controller('ChatsCtrl', function ($scope, Chats) {
@@ -82,39 +99,35 @@ angular.module('starter.controllers', ['ionic.rating'])
       Chats.remove(chat);
     };
   })
-  .controller('AccountCtrl', function ($scope,$state,$stateParams) {
+  .controller('AccountCtrl', function ($scope, $state, $stateParams) {
 
-    $scope.attractionId=$stateParams.attractionId;
+    $scope.attractionId = $stateParams.attractionId;
 
     console.log($scope.attractionId);
-    $scope.items=[
-      {name:'酒店'},
-      {name:'演出'},
-      {name:'餐饮'},
-      {name:'路况'},
-      {name:'公告'},
+    $scope.items = [
+      {name: '酒店'},
+      {name: '演出'},
+      {name: '餐饮'},
+      {name: '路况'},
+      {name: '公告'},
     ]
-    $scope.checkClick=[];
-    $scope.notCheck=[];
+    $scope.checkClick = [];
+    $scope.notCheck = [];
 
 
-    $scope.check=function($index){
-      for(i=0;i<5;i++){
-        if(i==$index){
-          $scope.checkClick[i]=false;
-          $scope.notCheck[i]=true;
-        }else {
-          $scope.checkClick[i]=true;
-          $scope.notCheck[i]=false;
+    $scope.check = function ($index) {
+      for (i = 0; i < 5; i++) {
+        if (i == $index) {
+          $scope.checkClick[i] = false;
+          $scope.notCheck[i] = true;
+        } else {
+          $scope.checkClick[i] = true;
+          $scope.notCheck[i] = false;
         }
       }
     }
 
     $scope.check($scope.attractionId);
-
-
-
-
 
 
     $scope.settings = {
@@ -139,8 +152,8 @@ angular.module('starter.controllers', ['ionic.rating'])
     $scope.userid = $stateParams;
     $scope.testinfor = "爬爬爬爬";
   })
-  .controller('aboutMineCtrl',function($scope,$stateParams){
-    $scope.test='success';
+  .controller('aboutMineCtrl', function ($scope, $stateParams) {
+    $scope.test = 'success';
   })
   .controller('testinforCtrl', function ($scope, $stateParams) {
     $scope.test = $stateParams;
@@ -170,13 +183,13 @@ angular.module('starter.controllers', ['ionic.rating'])
     };
 
     //如果重新提交
-    $scope.$on('modal.shown', function() {
-      if($rootScope.submitState == 'resubmit'){
+    $scope.$on('modal.shown', function () {
+      if ($rootScope.submitState == 'resubmit') {
         $http.get(baseUrl + 'complaints/' + $rootScope.resubmitComId)
           .success(function (resp) {
             $scope.complaint = resp;
-            for(i in $scope.typeList){
-              if($scope.typeList[i]['typeId'] == resp.type){
+            for (i in $scope.typeList) {
+              if ($scope.typeList[i]['typeId'] == resp.type) {
                 $scope.currentType = $scope.typeList[i];
               }
             }
@@ -186,15 +199,15 @@ angular.module('starter.controllers', ['ionic.rating'])
     $scope.complaint = {};
     //点击提交按钮
     $scope.submitComplaint = function () {
-      if($rootScope.submitState == 'create'){
+      if ($rootScope.submitState == 'create') {
         $scope.complaint.replyComId = 0;
         $scope.complaint.userId = 1; //伪数据
         create();
-      }else if($rootScope.submitState == 'resubmit'){
+      } else if ($rootScope.submitState == 'resubmit') {
         $scope.complaint.replyComId = 0;
         $scope.complaint.userId = 1;
         resubmit();
-      }else if($rootScope.submitState == 'reply'){
+      } else if ($rootScope.submitState == 'reply') {
         $scope.complaint.replyComId = $rootScope.replyComId;
         $scope.complaint.userId = 1;
         reply();
@@ -204,30 +217,30 @@ angular.module('starter.controllers', ['ionic.rating'])
     //创建
     function create() {
       //数据处理失败返回
-      if(!handleData()) return;
+      if (!handleData()) return;
       //提交到服务器
       submit(baseUrl + 'complaints', $scope.complaint);
     }
 
     //重新提交
     function resubmit() {
-      if(!handleData()) return;
+      if (!handleData()) return;
       submit(baseUrl + 'complaints/' + $scope.complaint.id, $scope.complaint);
     }
 
     //回复
     function reply() {
-      if(!handleData()) return;
+      if (!handleData()) return;
       submit(baseUrl + 'complaints/' + $scope.complaint.replyComId + '/reply', $scope.complaint);
     }
 
     //提交数据到服务器
-    function submit(url,complaint) {
-      $http.post(url,complaint)
+    function submit(url, complaint) {
+      $http.post(url, complaint)
         .success(function (resp) {
-          if(resp.id){
-            for(i in $scope.images){
-              upload($scope.images[i],resp.id);
+          if (resp.id) {
+            for (i in $scope.images) {
+              upload($scope.images[i], resp.id);
             }
           }
           $scope.showInfoPopup("提交成功！");
@@ -237,7 +250,7 @@ angular.module('starter.controllers', ['ionic.rating'])
 
     //处理数据
     function handleData() {
-      if($scope.currentType){
+      if ($scope.currentType) {
         $scope.complaint.type = $scope.currentType['typeId'];
       }
       //验证字段是否为空
@@ -245,7 +258,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
 
     //显示评价成功的信息
-    $scope.showInfoPopup = function(info) {
+    $scope.showInfoPopup = function (info) {
       var alertPopup = $ionicPopup.alert({
         title: info,
         template: ''
@@ -255,11 +268,11 @@ angular.module('starter.controllers', ['ionic.rating'])
     /*----------------图片上传相关-----------------*/
 
     //图片上传
-    function upload(fileURL,comId) {
+    function upload(fileURL, comId) {
       var success = function (r) {
         //success
       };
-      var fail = function(error) {
+      var fail = function (error) {
         //fail
       };
       var options = new FileUploadOptions();
@@ -306,7 +319,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     /*----------------图片上传相关-----------------*/
 
   })
-  .controller('ComplainCtrl', function (baseUrl,$scope, $http, $stateParams, $ionicModal, $ionicLoading, $rootScope) {
+  .controller('ComplainCtrl', function (baseUrl, $scope, $http, $stateParams, $ionicModal, $ionicLoading, $rootScope) {
 
     $ionicLoading.show({
       content: 'Loading',
@@ -328,7 +341,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     $http.get(baseUrl + "complaints/types")
       .success(function (resp) {
         $scope.typeMap = {};
-        for(i in resp){
+        for (i in resp) {
           $scope.typeMap[resp[i].typeId] = resp[i].typeName;
         }
       });
@@ -337,7 +350,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     getComplaints(1);
 
     //如果模态框关闭，重新获取
-    $scope.$on('modal.hidden', function() {
+    $scope.$on('modal.hidden', function () {
       getComplaints(1);
     });
 
@@ -374,13 +387,13 @@ angular.module('starter.controllers', ['ionic.rating'])
     var comId = $stateParams['comId'];
 
     //伪数据
-     $scope.userId = 1;
+    $scope.userId = 1;
 
-    if(status == 'init'){
+    if (status == 'init') {
       $scope.showDropDown = false;
-    }else if(status == 'complete'){
+    } else if (status == 'complete') {
       $scope.showDropDown = false;
-    }else{
+    } else {
       $scope.showDropDown = false;
     }
 
@@ -391,13 +404,14 @@ angular.module('starter.controllers', ['ionic.rating'])
         .success(function (resp) {
           console.log(resp);
           $scope.complaints = resp;
-          if(resp[resp.length-1].userId == $scope.userId){
+          if (resp[resp.length - 1].userId == $scope.userId) {
             $scope.showDropDown = false;
-          }else if(status == 'handling'){
+          } else if (status == 'handling') {
             $scope.showDropDown = true;
           }
         });
     }
+
     //模态框
     $ionicModal.fromTemplateUrl('complainModal.html', function (modal) {
       $scope.modal = modal;
@@ -407,7 +421,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     });
 
     //重新加载
-    $scope.$on('modal.hidden', function() {
+    $scope.$on('modal.hidden', function () {
       loadData();
     });
 
@@ -435,21 +449,21 @@ angular.module('starter.controllers', ['ionic.rating'])
     };
     //提交影片评分到服务器
     var ratingCom = function () {
-      $http.post(baseUrl + 'complaints/' + comId + '/stars',{
-        star:$scope.rating.rate
+      $http.post(baseUrl + 'complaints/' + comId + '/stars', {
+        star: $scope.rating.rate
       }).success(function (response) {
-          if(response.status == 'success'){
-            $scope.showAlertSuccess();
-          }else{
-            $scope.showAlertFailure();
-          }
-      }).error(function (data) {
+        if (response.status == 'success') {
+          $scope.showAlertSuccess();
+        } else {
           $scope.showAlertFailure();
+        }
+      }).error(function (data) {
+        $scope.showAlertFailure();
       });
     };
 
     //显示评价成功的信息
-    $scope.showAlertSuccess = function() {
+    $scope.showAlertSuccess = function () {
       var alertPopup = $ionicPopup.alert({
         title: '评价成功',
         template: ''
@@ -457,7 +471,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     };
 
     //显示评价失败的信息
-    $scope.showAlertFailure = function() {
+    $scope.showAlertFailure = function () {
       var alertPopup = $ionicPopup.alert({
         title: '评价失败，请重试',
         template: ''
@@ -475,7 +489,7 @@ angular.module('starter.controllers', ['ionic.rating'])
         buttonClicked: function (index) {
           if (index == 0) {
             $rootScope.submitState = "reply";
-            $rootScope.replyComId = $scope.complaints[$scope.complaints.length-1].id;
+            $rootScope.replyComId = $scope.complaints[$scope.complaints.length - 1].id;
             $scope.modal.show();
             hideSheet();
           } else if (index == 1) {
@@ -490,19 +504,19 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
   })
 
-.controller('hotelCtrl',function($scope){
-  $scope.test='hotel';
-  $scope.tests = [
-    {
-      name: 'test1'
-    }, {
-      name: 'test2'
-    }, {
-      name: 'test3'
-    }
-  ]
-})
-  .controller('canteenCtrl',function($scope){
+  .controller('hotelCtrl', function ($scope) {
+    $scope.test = 'hotel';
+    $scope.tests = [
+      {
+        name: 'test1'
+      }, {
+        name: 'test2'
+      }, {
+        name: 'test3'
+      }
+    ]
+  })
+  .controller('canteenCtrl', function ($scope) {
     $scope.tests = [
       {
         name: 'canteenCtrl'
@@ -513,7 +527,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       }
     ]
   })
-  .controller('performanceCtrl',function($scope){
+  .controller('performanceCtrl', function ($scope) {
     $scope.tests = [
       {
         name: 'performanceCtrl'
@@ -524,7 +538,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       }
     ]
   })
-  .controller('trafficCtrl',function($scope){
+  .controller('trafficCtrl', function ($scope) {
     $scope.tests = [
       {
         name: 'trafficCtrl'
@@ -535,7 +549,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       }
     ]
   })
-  .controller('announcementlCtrl',function($scope){
+  .controller('announcementlCtrl', function ($scope) {
     $scope.tests = [
       {
         name: 'announcementlCtrl'
@@ -547,25 +561,25 @@ angular.module('starter.controllers', ['ionic.rating'])
     ]
   })
 
-.controller('chatDetailCtrl',function ($scope,$stateParams){
-    $scope.isTrue=false;
-    $scope.likeNum=88;
+  .controller('chatDetailCtrl', function ($scope, $stateParams) {
+    $scope.isTrue = false;
+    $scope.likeNum = 88;
 
-    $scope.check=function(){
-      $scope.isTrue=!$scope.isTrue;
-      if ($scope.isTrue==true){
+    $scope.check = function () {
+      $scope.isTrue = !$scope.isTrue;
+      if ($scope.isTrue == true) {
         $scope.likeNum++;
-      }else if($scope.isTrue==false){
+      } else if ($scope.isTrue == false) {
         $scope.likeNum--;
       }
-   }
-    $scope.chatId=$stateParams.chatId;
-})
+    }
+    $scope.chatId = $stateParams.chatId;
+  })
 
-  //.controller('tabCtrl',function($scope){
-  //  $scope.test='aaaaaaaa';
-  // $scope.check=function(){
-  //
-  // }
-  //})
+//.controller('tabCtrl',function($scope){
+//  $scope.test='aaaaaaaa';
+// $scope.check=function(){
+//
+// }
+//})
 

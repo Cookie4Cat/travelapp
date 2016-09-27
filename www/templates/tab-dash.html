@@ -70,10 +70,13 @@
       <div class="col-20"><p class="word">路况</p></div>
       <div class="col-20"><p class="word">公告</p></div>
     </div>
-    <img ng-src="img/Attraction1.jpg" width="106%" style="margin-left: -3%;margin-top: 2%;height: 200px;">
-    <div class="row" style="background-color:rgba(0,0,0,0.3);text-align: center;width:106%;margin-left:-3%;height: 200px;position: relative;margin-top: -205px ;z-index: 100;" ng-click="dashDetail()" >
-      <div class="col-50 col-offset-25"><p style="color:white;font-size: 110%;margin-top: 70px " ng-show="isntClick">魅力九寨，邀您共享人间仙境</p>
-        <a href="" class="button button-small" style="background-color: rgba(1,1,1,0);color:white;border: 2px solid white;font-size: 110%;font-weight: bolder;z-index: 100" >魅力九寨</a>
+
+    <div ng-repeat="s in scenicList">
+      <img ng-src="{{baseImgUrl + s['imgs'][0]['url']}}" width="106%" style="margin-left: -3%;margin-top: 2%;height: 200px;">
+      <div class="row" style="background-color:rgba(0,0,0,0.3);text-align: center;width:106%;margin-left:-3%;height: 200px;position: relative;margin-top: -205px ;z-index: 100;" ng-click="dashDetail(s)" >
+        <div class="col-50 col-offset-25"><p style="color:white;font-size: 110%;margin-top: 70px " ng-show="isntClick">{{s['shortDesc']}}</p>
+          <a href="" class="button button-small" style="background-color: rgba(1,1,1,0);color:white;border: 2px solid white;font-size: 110%;font-weight: bolder;z-index: 100" >{{s['btnText']}}</a>
+        </div>
       </div>
     </div>
 

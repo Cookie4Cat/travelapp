@@ -1,5 +1,9 @@
 angular.module('starter.services', [])
-
+  .service('Pager',function () {
+    this.pageParams = function (page,size) {
+      return '?page=' + page + '&size=' + size;
+    };
+  })
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 

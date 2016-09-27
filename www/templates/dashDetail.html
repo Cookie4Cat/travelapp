@@ -14,33 +14,25 @@
     </style>
     <div class="list card">
       <div class="item item-avatar">
-      <img src="img/2.jpg">
+      <img ng-src="{{baseImgUrl + scenic['imgs'][0]['url']}}">
       <h2>九寨沟国家级自然保护区</h2>
       <p>Jiuzhaigou Valley Scenic and Historic Interest Area</p>
       </div>
 
       <div class="item item-image">
         <ion-slide-box does-continue="true" auto-play="true" >
-          <ion-slide>
-            <div class="box blue"> <img src="img/1.jpg" width="100%" height="200px"></div>
-          </ion-slide>
-          <ion-slide>
-            <div class="box yellow"> <img src="img/2.jpg" width="100%" height="200px"></div>
-          </ion-slide>
-          <ion-slide>
-            <div class="box yellow"> <img src="img/3.jpg" width="100%" height="200px"></div>
+          <ion-slide ng-repeat="img in scenic['imgs']">
+            <div class="box blue"> <img ng-src="{{baseImgUrl + img['url']}}" width="100%" height="200px"></div>
           </ion-slide>
         </ion-slide-box>
 
         <div class="item ">
-          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">经典级别</h2><p class="col-75 myContent">世界自然遗产,国家AAAAA级旅游景区</p></div>
-          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">门票价格</h2><p class="col-75 myContent">旺季4-11月：220元;淡季11-3月：80元</p></div>
-          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">著名景点</h2><p class="col-75 myContent">翠湖、叠瀑、彩林、雪峰、藏情、蓝冰</p></div>
-          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">景区类型</h2><p class="col-75 myContent">野生动物类型自然保护区</p></div>
-          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">所在地点</h2><p class="col-75 myContent">四川省阿坝藏族羌族自治州</p></div>
-          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">游玩时长</h2><p class="col-75 myContent">1-3天</p></div>
-          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">气候类型</h2><p class="col-75 myContent">高原湿润气候</p></div>
-          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">占地面积</h2><p class="col-75 myContent">64297公顷</p></div>
+          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">经典级别</h2><p class="col-75 myContent">{{scenic['scenicLevel']}}</p></div>
+          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">门票价格</h2><p class="col-75 myContent">{{scenic['scenicPrice']}}</p></div>
+          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">著名景点</h2><p class="col-75 myContent">{{scenic['scenicDescription']}}</p></div>
+          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">景区类型</h2><p class="col-75 myContent">{{scenic['scenicType']}}</p></div>
+          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">所在地点</h2><p class="col-75 myContent">{{scenic['scenicSite']}}</p></div>
+          <div class="row dashDetailDiv"><h2 class="positive-bg light col-25 myOwnBadge">占地面积</h2><p class="col-75 myContent">{{scenic['scenicArea']}}</p></div>
           <button class="button button-full button-positive" ng-click="goAccount(0)">出发吧</button>
         </div>
 
