@@ -49,5 +49,9 @@
       <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">房间剩余</h2><p class="col-60 myContent2">{{h['totalRoom'] - h['bookedRoom']}}</p></div>
     </div>
   </div>
-
+  <ion-infinite-scroll
+    icon="ion-loading-c"
+    on-infinite="loadMoreHotel()"
+    distance="10%">
+  </ion-infinite-scroll>
 </div>

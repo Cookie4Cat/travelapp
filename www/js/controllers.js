@@ -29,6 +29,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       $scope.scenicList = [];
       getScenicList(1);
       $scope.currentPage = 1;
+      $scope.canGetS = true;
     }
 
     $rootScope.contact = '邓博文';
@@ -58,9 +59,10 @@ angular.module('starter.controllers', ['ionic.rating'])
       console.log('getPage' + page);
       $http.get(baseUrl + 'scenic/traveler/scenic' + Pager.pageParams(page,1))
         .success(function (resp) {
-          console.log(resp);
+          if(resp.length == 0){
+            $scope.canGetS = false;
+          }
           $scope.scenicList = $scope.scenicList.concat(resp);
-          console.log($scope.scenicList);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         }).error(function (resp) {
           alert('数据加载出错');
@@ -68,8 +70,10 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
 
     $scope.loadMore = function () {
-      $scope.currentPage++;
-      getScenicList($scope.currentPage);
+      if($scope.canGetS){
+        $scope.currentPage++;
+        getScenicList($scope.currentPage);
+      }
     };
 
 
@@ -130,16 +134,29 @@ angular.module('starter.controllers', ['ionic.rating'])
       getAnnouncements(1);
       getPerformances(1);
       getCanteens(1);
+      $scope.currentPageH = 1;
+      $scope.canGetH = true;
       $scope.baseImgUrl = resourceUrl;
     }
 
     function getHotels(page) {
       $http.get(baseUrl + 'hotel/traveler/scenic/' + 17
-        + '/hotels' + Pager.pageParams(page,4))
+        + '/hotels' + Pager.pageParams(page,2))
         .success(function (resp) {
+          if(resp.length == 0){
+            $scope.canGetH = false;
+          }
           $scope.hotels = $scope.hotels.concat(resp);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+          console.log('get hotel' + page);
         })
     }
+    $scope.loadMoreHotel = function () {
+      if($scope.canGetH){
+        $scope.currentPageH++;
+        getHotels($scope.currentPageH);
+      }
+    };
 
     function getAnnouncements(page){
       $http.get(baseUrl + 'emgy/traveler/scenic/' + 17 + '/emergencies' + Pager.pageParams(page,4))
