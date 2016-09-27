@@ -17,44 +17,17 @@
     }
   </style>
   <ion-content>
-    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
-      <img src="img/Attraction1.jpg" >
-      <h2>秋末，初冬，不一样的九寨</h2>
-      <p>时光匆匆，就这般不留一丝痕迹地前行者···</p>
-      <h4>出发吧文艺社</h4>
-      <h5 class="badge positive-bg stable">置顶</h5>
-    </a>
-
-    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
-      <img src="img/Attraction3.jpg" >
-      <h2>给自由一个借口</h2>
-      <p>总想着来一次说走就走的旅行···</p>
-      <h4>出发吧文艺社</h4>
-      <h5 class="badge positive-bg stable">置顶</h5>
-    </a>
-
-    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
-      <img src="img/Attraction2.jpg" >
-      <h2>雾霾之外，呼吸畅快</h2>
-      <p>我和朋友兴致勃勃地踏上了深圳到武夷山的动车···</p>
-      <h4>出发公众号</h4>
-      <h5 class="badge balanced-bg stable">独家</h5>
-    </a>
-
-    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
-      <img src="img/Attraction4.jpg" >
-      <h2>这美丽的香格里拉</h2>
-      <p>这可爱的香格里拉，我深深地爱上了它···</p>
-      <h4>出发公众号</h4>
-      <h5 class="badge assertive-bg stable">热点</h5>
-    </a>
-
-    <a href="#/tab/chats/chatDetail/11" class="item item-thumbnail-left MyA">
-      <img src="img/Attraction5.jpg" >
-      <h2>走进梦中的普罗旺斯</h2>
-      <p>很久很久以前，我有一个紫色的梦···</p>
-      <h4>出发吧文艺社</h4>
-      <h5 class="badge balanced-bg stable">独家</h5>
+    <a href="" ng-repeat="a in articles" class="item item-thumbnail-left MyA" ng-click="goDetail(a)">
+      <img ng-src="{{baseImgUrl + a['imageUrl']}}" >
+      <h2>{{a['title']}}</h2>
+      <p>{{a['article']}}</p>
+      <h4>{{a['publisher']}}</h4>
+      <div ng-switch="a['articleType']">
+        <h5 ng-switch-when="独家" class="badge balanced-bg stable">独家</h5>
+        <h5 ng-switch-when="置顶" class="badge positive-bg stable">置顶</h5>
+        <h5 ng-switch-when="热点" class="badge assertive-bg stable">热点</h5>
+      </div>
+      <h5 class="badge positive-bg stable">{{a['articleType']}}</h5>
     </a>
   </ion-content>
 </ion-view>

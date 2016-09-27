@@ -85,19 +85,25 @@ angular.module('starter.controllers', ['ionic.rating'])
     $scope.scenic = $rootScope.currentScenic;
   })
 
-  .controller('ChatsCtrl', function ($scope, Chats) {
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
+  .controller('ChatsCtrl', function ($scope, $state,$http, baseUrl,Pager,resourceUrl,$rootScope) {
+    init();
 
-    $scope.chats = Chats.all();
-    $scope.remove = function (chat) {
-      Chats.remove(chat);
-    };
+    function init() {
+      $scope.articles = [];
+      getArticles(1);
+      $scope.baseImgUrl = resourceUrl;
+    }
+    function getArticles(page) {
+      $http.get(baseUrl + 'article/traveler/articles' + Pager.pageParams(1,4))
+        .success(function (resp) {
+          $scope.articles = $scope.articles.concat(resp['articles']);
+        });
+    }
+
+    $scope.goDetail = function (article) {
+      $rootScope.currentArticle = article;
+      $state.go('tab.chatDetail');
+    }
   })
   .controller('AccountCtrl', function ($scope, $state, $stateParams) {
 
@@ -561,7 +567,11 @@ angular.module('starter.controllers', ['ionic.rating'])
     ]
   })
 
-  .controller('chatDetailCtrl', function ($scope, $stateParams) {
+  .controller('chatDetailCtrl', function (resourceUrl,$scope, $rootScope) {
+
+    $scope.article = $rootScope.currentArticle;
+    $scope.baseImgUrl = resourceUrl;
+
     $scope.isTrue = false;
     $scope.likeNum = 88;
 
@@ -572,9 +582,8 @@ angular.module('starter.controllers', ['ionic.rating'])
       } else if ($scope.isTrue == false) {
         $scope.likeNum--;
       }
-    }
-    $scope.chatId = $stateParams.chatId;
-  })
+    };
+  });
 
 //.controller('tabCtrl',function($scope){
 //  $scope.test='aaaaaaaa';
