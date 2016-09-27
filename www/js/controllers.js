@@ -40,6 +40,8 @@ angular.module('starter.controllers', ['ionic.rating'])
         return false;
       }
     }
+
+
     $ionicModal.fromTemplateUrl('modal.html', function (modal) {
       $scope.modal = modal;
     }, {
@@ -53,13 +55,22 @@ angular.module('starter.controllers', ['ionic.rating'])
     };
 
     function getScenicList(page) {
-      $http.get(baseUrl + 'scenic/traveler/scenic' + Pager.pageParams(page,4))
+      console.log('getPage' + page);
+      $http.get(baseUrl + 'scenic/traveler/scenic' + Pager.pageParams(page,1))
         .success(function (resp) {
+          console.log(resp);
           $scope.scenicList = $scope.scenicList.concat(resp);
+          console.log($scope.scenicList);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
         }).error(function (resp) {
           alert('数据加载出错');
       })
     }
+
+    $scope.loadMore = function () {
+      $scope.currentPage++;
+      getScenicList($scope.currentPage);
+    };
 
 
     $scope.isntClick = true;
@@ -143,7 +154,7 @@ angular.module('starter.controllers', ['ionic.rating'])
           $scope.performances = $scope.performances.concat(resp);
         })
     }
-    
+
     function getCanteens(page) {
       $http.get(baseUrl + 'cant/traveler/scenic/' + 17 + '/canteens' + Pager.pageParams(page,2))
         .success(function (resp) {

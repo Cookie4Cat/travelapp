@@ -111,8 +111,11 @@
         <a href="" class="button button-small" style="background-color: rgba(1,1,1,0);color:white;border: 2px solid white;font-size: 110%;font-weight: bolder;z-index: 100" >紫色天堂</a>
       </div>
     </div>
-
-
+    <ion-infinite-scroll
+      icon="ion-loading-c"
+      on-infinite="loadMore()"
+      distance="10%">
+    </ion-infinite-scroll>
   </ion-content>
 </ion-view>
 
