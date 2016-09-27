@@ -28,30 +28,25 @@
 
   </style>
 
-  <div class="list card">
-    <div class="item">
-      深圳登喜路国际大酒店
-      <i class="badge assertive-bg light">豪华型</i>
+  <div class="list card" ng-repeat="h in hotels">
+    <div class="item" ng-switch="h['id'] % 2">
+      {{h['name']}}
+      <i ng-switch-when="1" class="badge assertive-bg light">豪华型</i>
+      <i ng-switch-when="0" class="badge positive-bg light">经济型</i>
     </div>
     <div class="item item-image">
       <ion-slide-box does-continue="true" auto-play="true" >
-        <ion-slide>
-          <div class="box blue"> <img src="img/hotel1.png" width="100%" height="200px"></div>
-        </ion-slide>
-        <ion-slide>
-          <div class="box yellow"> <img src="img/hotel2.png" width="100%" height="200px"></div>
-        </ion-slide>
-        <ion-slide>
-          <div class="box yellow"> <img src="img/hotel3.png" width="100%" height="200px"></div>
+        <ion-slide ng-repeat="img in h['imgs']">
+          <div class="box blue"> <img ng-src="{{baseImgUrl + img['url']}}" width="100%" height="200px"></div>
         </ion-slide>
       </ion-slide-box>
     </div>
 
     <div class="item">
-      <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">酒店类型</h2><p class="col-60 myContent2">五星级人气热卖</p></div>
-      <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">酒店价格</h2><p class="col-60 myContent2">581元起</p></div>
-      <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">房间总量</h2><p class="col-60 myContent2">288间</p></div>
-      <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">房间剩余</h2><p class="col-60 myContent2">82间</p></div>
+      <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">酒店类型</h2><p class="col-60 myContent2">{{h['type']}}</p></div>
+      <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">酒店价格</h2><p class="col-60 myContent2">{{h['price']}}</p></div>
+      <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">房间总量</h2><p class="col-60 myContent2">{{h['totalRoom']}}</p></div>
+      <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">房间剩余</h2><p class="col-60 myContent2">{{h['totalRoom'] - h['bookedRoom']}}</p></div>
     </div>
   </div>
 

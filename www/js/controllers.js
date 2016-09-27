@@ -26,6 +26,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     init();
     function init() {
       $scope.baseImgUrl = resourceUrl;
+      $scope.scenicList = [];
       getScenicList(1);
       $scope.currentPage = 1;
     }
@@ -54,7 +55,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     function getScenicList(page) {
       $http.get(baseUrl + 'scenic/traveler/scenic' + Pager.pageParams(page,4))
         .success(function (resp) {
-          $scope.scenicList = resp;
+          $scope.scenicList = $scope.scenicList.concat(resp);
         }).error(function (resp) {
           alert('数据加载出错');
       })
@@ -94,7 +95,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       $scope.baseImgUrl = resourceUrl;
     }
     function getArticles(page) {
-      $http.get(baseUrl + 'article/traveler/articles' + Pager.pageParams(1,4))
+      $http.get(baseUrl + 'article/traveler/articles' + Pager.pageParams(page,4))
         .success(function (resp) {
           $scope.articles = $scope.articles.concat(resp['articles']);
         });
@@ -105,18 +106,31 @@ angular.module('starter.controllers', ['ionic.rating'])
       $state.go('tab.chatDetail');
     }
   })
-  .controller('AccountCtrl', function ($scope, $state, $stateParams) {
+  .controller('AccountCtrl', function ($scope, $stateParams, $http, $state, $rootScope,resourceUrl,baseUrl, Pager) {
+
+    init();
+    function init() {
+      $scope.hotels = [];
+      getHotels(1);
+      $scope.baseImgUrl = resourceUrl;
+    }
+
+    function getHotels(page) {
+      $http.get(baseUrl + 'hotel/traveler/scenic/' + 17
+        + '/hotels' + Pager.pageParams(page,4))
+        .success(function (resp) {
+          $scope.hotels = $scope.hotels.concat(resp);
+        })
+    }
 
     $scope.attractionId = $stateParams.attractionId;
-
-    console.log($scope.attractionId);
     $scope.items = [
       {name: '酒店'},
       {name: '演出'},
       {name: '餐饮'},
       {name: '路况'},
-      {name: '公告'},
-    ]
+      {name: '公告'}
+    ];
     $scope.checkClick = [];
     $scope.notCheck = [];
 
@@ -131,8 +145,7 @@ angular.module('starter.controllers', ['ionic.rating'])
           $scope.notCheck[i] = false;
         }
       }
-    }
-
+    };
     $scope.check($scope.attractionId);
 
 
@@ -148,7 +161,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     }, {
       animation: 'slide-in-up',
       focusFirstInput: true
-    })
+    });
 
     $scope.userid = 3;
 
