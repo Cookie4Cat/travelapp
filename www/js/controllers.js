@@ -20,9 +20,10 @@ angular.module('starter.controllers', ['ionic.rating'])
 
 
   //静态变量，后端API前缀
-  .constant('baseUrl', 'http://localhost:8088/v1/')
+  .constant('baseUrl1', 'http://localhost:8088/v1/')
   .constant('resourceUrl', 'http://localhost:8088/')
-  .controller('DashCtrl', function (Pager, baseUrl, resourceUrl,$scope, $http, $ionicModal, $rootScope, $state, $ionicViewSwitcher) {
+  .constant('baseUrl','http://localhost:8088/v1/com/traveller/')
+  .controller('DashCtrl', function (Pager, baseUrl1, resourceUrl,$scope, $http, $ionicModal, $rootScope, $state, $ionicViewSwitcher) {
     init();
     function init() {
       $scope.baseImgUrl = resourceUrl;
@@ -57,7 +58,7 @@ angular.module('starter.controllers', ['ionic.rating'])
 
     function getScenicList(page) {
       console.log('getPage' + page);
-      $http.get(baseUrl + 'scenic/traveler/scenic' + Pager.pageParams(page,1))
+      $http.get(baseUrl1 + 'scenic/traveler/scenic' + Pager.pageParams(page,1))
         .success(function (resp) {
           if(resp.length == 0){
             $scope.canGetS = false;
@@ -110,7 +111,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       $scope.baseImgUrl = resourceUrl;
     }
     function getArticles(page) {
-      $http.get(baseUrl + 'article/traveler/articles' + Pager.pageParams(page,4))
+      $http.get(baseUrl1 + 'article/traveler/articles' + Pager.pageParams(page,4))
         .success(function (resp) {
           $scope.articles = $scope.articles.concat(resp['articles']);
         });
@@ -143,7 +144,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
 
     function getHotels(page) {
-      $http.get(baseUrl + 'hotel/traveler/scenic/' + 17
+      $http.get(baseUrl1 + 'hotel/traveler/scenic/' + 17
         + '/hotels' + Pager.pageParams(page,2))
         .success(function (resp) {
           if(resp.length == 0){
@@ -165,20 +166,20 @@ angular.module('starter.controllers', ['ionic.rating'])
       $scope.currentPageP++;
       getPerformances($scope.currentPageP)
     };
-    
+
     $scope.loadMoreAnnouncements = function () {
       $scope.currentPageA++;
       getAnnouncements($scope.currentPageA);
     };
-    
+
     $scope.loadMoreCanteens = function () {
       $scope.currentPageC++;
       getCanteens($scope.currentPageC);
     };
-    
+
 
     function getAnnouncements(page){
-      $http.get(baseUrl + 'emgy/traveler/scenic/' + 17 + '/emergencies' + Pager.pageParams(page,4))
+      $http.get(baseUrl1 + 'emgy/traveler/scenic/' + 17 + '/emergencies' + Pager.pageParams(page,4))
           .success(function (resp) {
             $scope.emergencies = $scope.emergencies.concat(resp);
             $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -186,7 +187,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
 
     function getPerformances(page) {
-      $http.get(baseUrl + 'ent/traveler/scenic/' + 17 + '/performances' + Pager.pageParams(page,2))
+      $http.get(baseUrl1 + 'ent/traveler/scenic/' + 17 + '/performances' + Pager.pageParams(page,2))
         .success(function (resp) {
           $scope.performances = $scope.performances.concat(resp);
           $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -194,7 +195,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
 
     function getCanteens(page) {
-      $http.get(baseUrl + 'cant/traveler/scenic/' + 17 + '/canteens' + Pager.pageParams(page,2))
+      $http.get(baseUrl1 + 'cant/traveler/scenic/' + 17 + '/canteens' + Pager.pageParams(page,2))
         .success(function (resp) {
           $scope.canteens = $scope.canteens.concat(resp);
           $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -414,7 +415,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     /*----------------图片上传相关-----------------*/
 
   })
-  .controller('ComplainCtrl', function (baseUrl, $scope, $http, $stateParams, $ionicModal, $ionicLoading, $rootScope) {
+  .controller('ComplainCtrl', function (Pager,baseUrl, $scope, $http, $stateParams, $ionicModal, $ionicLoading, $rootScope) {
 
     $ionicLoading.show({
       content: 'Loading',
@@ -451,7 +452,7 @@ angular.module('starter.controllers', ['ionic.rating'])
 
     //获取投诉信息列表
     function getComplaints(userId) {
-      $http.get(baseUrl + userId + '/complaints')
+      $http.get(baseUrl + userId + '/complaints' + Pager.pageParams(1,10))
         .success(function (resp) {
           $ionicLoading.hide();
           $scope.complains = resp;
@@ -476,7 +477,6 @@ angular.module('starter.controllers', ['ionic.rating'])
   .controller('complainDetailCtrl', function ($rootScope, resourceUrl, baseUrl, $scope, $http, $ionicPopup, $stateParams, $ionicModal, $ionicActionSheet, $timeout) {
 
     $scope.resourceUrl = resourceUrl;
-
     //获取路径参数
     var status = $stateParams['status'];
     var comId = $stateParams['comId'];
