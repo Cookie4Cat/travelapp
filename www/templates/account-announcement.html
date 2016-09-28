@@ -10,6 +10,7 @@
       text-align: center;
     }
   </style>
+  <div ng-if="showInfo" style="text-align: center;margin-top: 50%">请选择景区</div>
   <div class="list card" ng-repeat="e in emergencies">
     <div class="item">
       <h2 class="myOwnBadge3 positive-bg light ">{{e['title']}}</h2>

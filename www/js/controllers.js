@@ -122,7 +122,36 @@ angular.module('starter.controllers', ['ionic.rating'])
       $state.go('tab.chatDetail');
     }
   })
-  .controller('AccountCtrl', function ($scope, $stateParams, $http, $state, $rootScope,resourceUrl,baseUrl, Pager) {
+  .controller('AccountCtrl', function ($scope, $stateParams, $http, $state, $rootScope,resourceUrl,baseUrl1,Pager) {
+    $scope.attractionId = $stateParams.attractionId;
+
+    $scope.items = [
+      {name: '酒店'},
+      {name: '演出'},
+      {name: '餐饮'},
+      {name: '路况'},
+      {name: '公告'}
+    ];
+    $scope.checkClick = [];
+    $scope.notCheck = [];
+
+    $scope.check = function ($index) {
+      for (i = 0; i < 5; i++) {
+        if (i == $index) {
+          $scope.checkClick[i] = false;
+          $scope.notCheck[i] = true;
+        } else {
+          $scope.checkClick[i] = true;
+          $scope.notCheck[i] = false;
+        }
+      }
+      $scope.showInfo = $rootScope.currentScenic == undefined;
+      init();
+    };
+    $scope.check($scope.attractionId);
+    $scope.settings = {
+      enableFriends: true
+    };
 
     init();
 
@@ -144,7 +173,8 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
 
     function getHotels(page) {
-      $http.get(baseUrl1 + 'hotel/traveler/scenic/' + 17
+      var sid = getSid();
+      $http.get(baseUrl1 + 'hotel/traveler/scenic/' + sid
         + '/hotels' + Pager.pageParams(page,2))
         .success(function (resp) {
           if(resp.length == 0){
@@ -153,6 +183,7 @@ angular.module('starter.controllers', ['ionic.rating'])
           $scope.hotels = $scope.hotels.concat(resp);
           $scope.$broadcast('scroll.infiniteScrollComplete');
           console.log('get hotel' + page);
+          console.log($scope.hotels);
         })
     }
     $scope.loadMoreHotel = function () {
@@ -177,9 +208,17 @@ angular.module('starter.controllers', ['ionic.rating'])
       getCanteens($scope.currentPageC);
     };
 
+    function getSid() {
+      if($rootScope.currentScenic == undefined){
+        return 0;
+      }else{
+        return $rootScope.currentScenic['sid'];
+      }
+    }
 
     function getAnnouncements(page){
-      $http.get(baseUrl1 + 'emgy/traveler/scenic/' + 17 + '/emergencies' + Pager.pageParams(page,4))
+      var sid = getSid();
+      $http.get(baseUrl1 + 'emgy/traveler/scenic/' + sid + '/emergencies' + Pager.pageParams(page,4))
           .success(function (resp) {
             $scope.emergencies = $scope.emergencies.concat(resp);
             $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -187,7 +226,8 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
 
     function getPerformances(page) {
-      $http.get(baseUrl1 + 'ent/traveler/scenic/' + 17 + '/performances' + Pager.pageParams(page,2))
+      var sid = getSid();
+      $http.get(baseUrl1 + 'ent/traveler/scenic/' + sid + '/performances' + Pager.pageParams(page,2))
         .success(function (resp) {
           $scope.performances = $scope.performances.concat(resp);
           $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -195,40 +235,13 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
 
     function getCanteens(page) {
-      $http.get(baseUrl1 + 'cant/traveler/scenic/' + 17 + '/canteens' + Pager.pageParams(page,2))
+      var sid = getSid();
+      $http.get(baseUrl1 + 'cant/traveler/scenic/' + sid + '/canteens' + Pager.pageParams(page,2))
         .success(function (resp) {
           $scope.canteens = $scope.canteens.concat(resp);
           $scope.$broadcast('scroll.infiniteScrollComplete');
         })
     }
-
-    $scope.attractionId = $stateParams.attractionId;
-
-    $scope.items = [
-      {name: '酒店'},
-      {name: '演出'},
-      {name: '餐饮'},
-      {name: '路况'},
-      {name: '公告'}
-    ];
-    $scope.checkClick = [];
-    $scope.notCheck = [];
-
-    $scope.check = function ($index) {
-      for (i = 0; i < 5; i++) {
-        if (i == $index) {
-          $scope.checkClick[i] = false;
-          $scope.notCheck[i] = true;
-        } else {
-          $scope.checkClick[i] = true;
-          $scope.notCheck[i] = false;
-        }
-      }
-    };
-    $scope.check($scope.attractionId);
-    $scope.settings = {
-      enableFriends: true
-    };
   })
 
   .controller('MineCtrl', function ($scope, $ionicModal) {
