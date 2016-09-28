@@ -18,7 +18,7 @@
   </style>
   <div class="card" ng-repeat="p in performances">
     <div class="item">
-        <h2 style="text-align: center">景区演出时间表</h2>
+        <h2 style="text-align: center">{{p['timeFrame'] }}</h2>
     </div>
     <div class="item item-image">
       <ion-slide-box does-continue="true" auto-play="true">
@@ -28,7 +28,7 @@
       </ion-slide-box>
     </div>
     <div class="item">
-        <div class="row dashDetailDiv2"><h2 class="positive-bg light col-25 myOwnBadge2">{{p['name']}}</h2><p class="col-75 myContent2">{{p['timeFrame'] }}</p></div>
+        <div class="row dashDetailDiv2"><h2 class="positive-bg light col-25 myOwnBadge2">{{p['name']}}</h2></div>
         <div class="item item-body">
           &nbsp; &nbsp; &nbsp; &nbsp;{{p['content']}}
         </div>
