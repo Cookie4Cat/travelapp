@@ -1,6 +1,6 @@
 <ion-view view-title="我的投诉" >
   <ion-nav-buttons side="right">
-    <button class="button button-small button-clear" ng-click="create()"><p><i class="icon ion-ios-plus-empty" style="font-size: 110%"></i></p></button>
+    <button class="button button-small button-clear" ng-if="!showInfo" ng-click="create()"><p><i class="icon ion-ios-plus-empty" style="font-size: 110%"></i></p></button>
   </ion-nav-buttons>
   <ion-content class="padding">
     <style>
@@ -22,7 +22,8 @@
 
 
     </style>
-
+    <div ng-if="showInfo">请先登陆</div>
+    <div ng-if="!showInfo&&complains.length == 0">无数据显示</div>
     <div ng-repeat="complain in complains" class="card">
       <div class="item item-divider">
         <div class="status" ng-switch="complain.status">

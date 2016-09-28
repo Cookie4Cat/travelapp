@@ -238,7 +238,12 @@ angular.module('starter.controllers', ['ionic.rating'])
 
     $scope.$on('modal.hidden',function () {
       $scope.user = $rootScope.currentUser;
-    })
+    });
+
+    $scope.logout = function () {
+      $rootScope.currentUser = null;
+      $scope.user = null;
+    }
 
 
   })
@@ -288,6 +293,10 @@ angular.module('starter.controllers', ['ionic.rating'])
 
     //如果重新提交
     $scope.$on('modal.shown', function () {
+      $scope.showType = $rootScope.submitState != 'reply';
+      if($rootScope.submitState == 'create'){
+        $scope.complaint = {};
+      }
       if ($rootScope.submitState == 'resubmit') {
         $http.get(baseUrl + 'complaints/' + $rootScope.resubmitComId)
           .success(function (resp) {
@@ -301,19 +310,17 @@ angular.module('starter.controllers', ['ionic.rating'])
       }
     });
     $scope.complaint = {};
+    $scope.complaint['userId'] = $rootScope.currentUser?$rootScope.currentUser['id']:0;
     //点击提交按钮
     $scope.submitComplaint = function () {
       if ($rootScope.submitState == 'create') {
         $scope.complaint.replyComId = 0;
-        $scope.complaint.userId = 1; //伪数据
         create();
       } else if ($rootScope.submitState == 'resubmit') {
         $scope.complaint.replyComId = 0;
-        $scope.complaint.userId = 1;
         resubmit();
       } else if ($rootScope.submitState == 'reply') {
         $scope.complaint.replyComId = $rootScope.replyComId;
-        $scope.complaint.userId = 1;
         reply();
       }
     };
@@ -425,13 +432,8 @@ angular.module('starter.controllers', ['ionic.rating'])
   })
   .controller('ComplainCtrl', function (Pager,baseUrl, $scope, $http, $stateParams, $ionicModal, $ionicLoading, $rootScope) {
 
-    $ionicLoading.show({
-      content: 'Loading',
-      animation: 'fade-in',
-      showBackdrop: true,
-      maxWidth: 200,
-      showDelay: 0
-    });
+    $scope.userId = $rootScope.currentUser?$rootScope.currentUser['id']:0;
+    $scope.showInfo = !$rootScope.currentUser;
 
     //模态框
     $ionicModal.fromTemplateUrl('complainModal.html', function (modal) {
@@ -451,11 +453,11 @@ angular.module('starter.controllers', ['ionic.rating'])
       });
 
     //获取投诉信息列表
-    getComplaints(1);
+    getComplaints($scope.userId);
 
     //如果模态框关闭，重新获取
     $scope.$on('modal.hidden', function () {
-      getComplaints(1);
+      getComplaints($scope.userId);
     });
 
     //获取投诉信息列表
@@ -490,7 +492,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     var comId = $stateParams['comId'];
 
     //伪数据
-    $scope.userId = 1;
+    $scope.userId = $rootScope.currentUser?$rootScope.currentUser['id']:0;
 
     if (status == 'init') {
       $scope.showDropDown = false;

@@ -82,11 +82,11 @@
     <ion-content  class="positive">
       <div>
 
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label" ng-show="showType">
           <span class="input-label positive">投诉类型</span>
         </label>
 
-        <div ng-repeat="typeRow in types">
+        <div ng-repeat="typeRow in types" ng-show="showType">
           <div class="row" style="margin-top:2%;margin-bottom: 2%">
             <div class="choose col-33 col-offset-10" ng-repeat="type in typeRow" ng-click="selectType(type)"
                  ng-class="{true:'choose2',false:'choose'}[type==currentType]">{{type.typeName}}</div>
