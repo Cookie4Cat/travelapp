@@ -24,6 +24,7 @@ angular.module('starter.controllers', ['ionic.rating'])
   .constant('resourceUrl', 'http://localhost:8088/')
   .constant('baseUrl','http://localhost:8088/v1/com/traveller/')
   .controller('DashCtrl', function (Pager, baseUrl1, resourceUrl,$scope, $http, $ionicModal, $rootScope, $state, $ionicViewSwitcher) {
+    
     init();
     function init() {
       $scope.baseImgUrl = resourceUrl;
@@ -32,32 +33,13 @@ angular.module('starter.controllers', ['ionic.rating'])
       $scope.currentPage = 1;
       $scope.canGetS = true;
     }
-
-    $rootScope.contact = '邓博文';
-    $rootScope.isset = function () {
-      var msg = sessionStorage.getItem("userName");
-      if (!msg) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-
-    $ionicModal.fromTemplateUrl('modal.html', function (modal) {
-      $scope.modal = modal;
-    }, {
-      animation: 'slide-in-up',
-      focusFirstInput: true
-    });
-
+    
     $rootScope.goAccount = function (id) {
       $ionicViewSwitcher.nextDirection('forward');
       $state.go('tab.account', {"attractionId": id});
     };
 
     function getScenicList(page) {
-      console.log('getPage' + page);
       $http.get(baseUrl1 + 'scenic/traveler/scenic' + Pager.pageParams(page,1))
         .success(function (resp) {
           if(resp.length == 0){
@@ -613,49 +595,16 @@ angular.module('starter.controllers', ['ionic.rating'])
   })
 
   .controller('hotelCtrl', function ($scope) {
-    $scope.test = 'hotel';
-    $scope.tests = [
-      {
-        name: 'test1'
-      }, {
-        name: 'test2'
-      }, {
-        name: 'test3'
-      }
-    ]
+    
   })
   .controller('canteenCtrl', function ($scope) {
-    $scope.tests = [
-      {
-        name: 'canteenCtrl'
-      }, {
-        name: 'canteenCtrl'
-      }, {
-        name: 'canteenCtrl'
-      }
-    ]
+    
   })
   .controller('performanceCtrl', function ($scope) {
-    $scope.tests = [
-      {
-        name: 'performanceCtrl'
-      }, {
-        name: 'performanceCtrl'
-      }, {
-        name: 'performanceCtrl'
-      }
-    ]
+    
   })
   .controller('trafficCtrl', function ($scope) {
-    $scope.tests = [
-      {
-        name: 'trafficCtrl'
-      }, {
-        name: 'trafficCtrl'
-      }, {
-        name: 'trafficCtrl'
-      }
-    ]
+    
   })
   .controller('announcementlCtrl', function ($scope) {
     $scope.tests = [
@@ -687,10 +636,4 @@ angular.module('starter.controllers', ['ionic.rating'])
     };
   });
 
-//.controller('tabCtrl',function($scope){
-//  $scope.test='aaaaaaaa';
-// $scope.check=function(){
-//
-// }
-//})
 
