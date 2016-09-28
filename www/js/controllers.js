@@ -24,7 +24,7 @@ angular.module('starter.controllers', ['ionic.rating'])
   .constant('resourceUrl', 'http://localhost:8088/')
   .constant('baseUrl','http://localhost:8088/v1/com/traveller/')
   .controller('DashCtrl', function (Pager, baseUrl1, resourceUrl,$scope, $http, $ionicModal, $rootScope, $state, $ionicViewSwitcher) {
-    
+
     init();
     function init() {
       $scope.baseImgUrl = resourceUrl;
@@ -33,7 +33,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       $scope.currentPage = 1;
       $scope.canGetS = true;
     }
-    
+
     $rootScope.goAccount = function (id) {
       $ionicViewSwitcher.nextDirection('forward');
       $state.go('tab.account', {"attractionId": id});
@@ -226,7 +226,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     }
   })
 
-  .controller('MineCtrl', function ($scope, $ionicModal) {
+  .controller('MineCtrl', function ($scope, $ionicModal, $rootScope) {
 
     $ionicModal.fromTemplateUrl('modal.html', function (modal) {
       $scope.modal = modal;
@@ -235,23 +235,36 @@ angular.module('starter.controllers', ['ionic.rating'])
       focusFirstInput: true
     });
 
-    $scope.userid = 3;
+
+    $scope.$on('modal.hidden',function () {
+      $scope.user = $rootScope.currentUser;
+    })
+
 
   })
 
   .controller('personalDetailCtrl', function ($scope, $stateParams) {
-    $scope.userid = $stateParams;
-    $scope.testinfor = "爬爬爬爬";
   })
   .controller('aboutMineCtrl', function ($scope, $stateParams) {
-    $scope.test = 'success';
   })
   .controller('testinforCtrl', function ($scope, $stateParams) {
-    $scope.test = $stateParams;
   })
 
-  .controller('ModalCtrl', function ($scope, $rootScope, $http, $ionicPopup) {
-
+  .controller('ModalCtrl', function ($scope, $rootScope, $http, baseUrl1) {
+    $scope.userInfo = {};
+    $rootScope.currentUser = null;
+    $scope.login = function () {
+      $http.post(baseUrl1 + 'user/traveler/users/login',$scope.userInfo)
+        .success(function (resp) {
+          //登陆失败
+          if(resp == ""){
+            alert('账号或密码错误')
+          }else{
+            $rootScope.currentUser = resp;
+            $scope.modal.hide();
+          }
+        })
+    }
   })
 
   .controller('complainModalCtrl', function ($ionicPopup, baseUrl, $http, $scope, $stateParams, $rootScope, $ionicActionSheet) {
@@ -595,16 +608,16 @@ angular.module('starter.controllers', ['ionic.rating'])
   })
 
   .controller('hotelCtrl', function ($scope) {
-    
+
   })
   .controller('canteenCtrl', function ($scope) {
-    
+
   })
   .controller('performanceCtrl', function ($scope) {
-    
+
   })
   .controller('trafficCtrl', function ($scope) {
-    
+
   })
   .controller('announcementlCtrl', function ($scope) {
     $scope.tests = [

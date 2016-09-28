@@ -5,10 +5,10 @@
   <ion-content style="text-align: center" >
     <div style="background-color: rgba(68,68,68,0.2)" class="padding">
       <img src="img/logo.jpg" width="20%" style="border-radius:30px 30px 30px 30px;margin-top:5%;">
-      <h4 style="font-family: 方正喵呜体;font-size:200%;" ng-show="isset()">游世界  从这里开始</h4>
-      <button class="button button-full button-positive" ng-click="modal.show()" style="margin-top:5%;color:white;" ng-show="isset()" >请您登陆</button>
-      <h3 ng-hide="isset()" style="font-family: 微软雅黑;display: block;">欢迎您，{{userName}}</h3>
-      <button class="button button-full button-positive" ng-click="unset()" style="margin-top:5%;color:white;" ng-hide="isset()" >注销登录</button>
+      <h4 style="font-family: 方正喵呜体;font-size:200%;" ng-show="user">游世界  从这里开始</h4>
+      <button class="button button-full button-positive" ng-click="modal.show()" style="margin-top:5%;color:white;" ng-show="!user" >请您登陆</button>
+      <h3 ng-show="user" style="font-family: 微软雅黑;display: block;">欢迎您，{{currentUser['username']}}</h3>
+      <button class="button button-full button-positive" ng-click="unset()" style="margin-top:5%;color:white;" ng-show="user" >注销登录</button>
     </div>
 
     <div style="margin-top: 10px;" class="padding">

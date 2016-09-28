@@ -57,14 +57,13 @@
         <div class="list" style="margin-top:10%;">
           <label class="item item-input">
             <span class="input-label">用户名</span>
-            <input ng-model="user.username" type="text">
+            <input ng-model="userInfo.username" type="text">
           </label>
           <label class="item item-input" style="margin-top:5%">
             <span class="input-label">密码</span>
-            <input ng-model="user.password" type="text">
+            <input ng-model="userInfo.password" type="password">
           </label>
-          <button class="button button-full button-positive" ng-click="createContact()" style="margin-top:10%;color:white;font-family: 微软雅黑">登录</button>
-          <button class="button button-full button-positive"  style="margin-top:5%;color:white;font-family: 微软雅黑">注册</button>
+          <button class="button button-full button-positive" ng-click="login()" style="margin-top:10%;color:white;font-family: 微软雅黑">登录</button>
         </div>
       </div>
     </ion-content>
