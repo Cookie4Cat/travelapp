@@ -36,6 +36,10 @@
       <div class="row dashDetailDiv"><h2 class="positive-bg light col-30 myOwnBadge">经典口味</h2><p class="col-60 myContent2">{{c['specialty']}}</p>
     </div>
   </div>
-
   </div>
+  <ion-infinite-scroll
+    icon="ion-loading-c"
+    on-infinite="loadMoreCanteens()"
+    distance="10%">
+  </ion-infinite-scroll>
 </div>

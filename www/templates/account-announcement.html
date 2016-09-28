@@ -21,6 +21,11 @@
       {{e['content']}}
     </div>
   </div>
+  <ion-infinite-scroll
+    icon="ion-loading-c"
+    on-infinite="loadMoreAnnouncements()"
+    distance="10%">
+  </ion-infinite-scroll>
 </div>
 
 

@@ -135,6 +135,9 @@ angular.module('starter.controllers', ['ionic.rating'])
       getPerformances(1);
       getCanteens(1);
       $scope.currentPageH = 1;
+      $scope.currentPageP = 1;
+      $scope.currentPageA = 1;
+      $scope.currentPageC = 1;
       $scope.canGetH = true;
       $scope.baseImgUrl = resourceUrl;
     }
@@ -158,10 +161,27 @@ angular.module('starter.controllers', ['ionic.rating'])
       }
     };
 
+    $scope.loadMorePerformances = function () {
+      $scope.currentPageP++;
+      getPerformances($scope.currentPageP)
+    };
+    
+    $scope.loadMoreAnnouncements = function () {
+      $scope.currentPageA++;
+      getAnnouncements($scope.currentPageA);
+    };
+    
+    $scope.loadMoreCanteens = function () {
+      $scope.currentPageC++;
+      getCanteens($scope.currentPageC);
+    };
+    
+
     function getAnnouncements(page){
       $http.get(baseUrl + 'emgy/traveler/scenic/' + 17 + '/emergencies' + Pager.pageParams(page,4))
           .success(function (resp) {
             $scope.emergencies = $scope.emergencies.concat(resp);
+            $scope.$broadcast('scroll.infiniteScrollComplete');
           });
     }
 
@@ -169,6 +189,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       $http.get(baseUrl + 'ent/traveler/scenic/' + 17 + '/performances' + Pager.pageParams(page,2))
         .success(function (resp) {
           $scope.performances = $scope.performances.concat(resp);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
         })
     }
 
@@ -176,6 +197,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       $http.get(baseUrl + 'cant/traveler/scenic/' + 17 + '/canteens' + Pager.pageParams(page,2))
         .success(function (resp) {
           $scope.canteens = $scope.canteens.concat(resp);
+          $scope.$broadcast('scroll.infiniteScrollComplete');
         })
     }
 
