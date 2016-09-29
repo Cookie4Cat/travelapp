@@ -84,7 +84,7 @@ angular.module('starter.controllers', ['ionic.rating'])
     $scope.scenic = $rootScope.currentScenic;
   })
 
-  .controller('ChatsCtrl', function ($scope, $state,$http, baseUrl,Pager,resourceUrl,$rootScope) {
+  .controller('ChatsCtrl', function ($scope, $state,$http, baseUrl1,Pager,resourceUrl,$rootScope) {
     init();
 
     function init() {
@@ -93,7 +93,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       $scope.baseImgUrl = resourceUrl;
     }
     function getArticles(page) {
-      $http.get(baseUrl1 + 'article/traveler/articles' + Pager.pageParams(page,4))
+      $http.get(baseUrl1 + 'article/traveler/articles' + Pager.pageParams(page,20))
         .success(function (resp) {
           $scope.articles = $scope.articles.concat(resp['articles']);
         });
@@ -104,7 +104,7 @@ angular.module('starter.controllers', ['ionic.rating'])
       $state.go('tab.chatDetail');
     }
   })
-  .controller('AccountCtrl', function ($scope, $stateParams, $http, $state, $rootScope,resourceUrl,baseUrl1,Pager) {
+  .controller('AccountCtrl', function ($timeout,$scope, $stateParams, $http, $state, $rootScope,resourceUrl,baseUrl1,Pager) {
     $scope.attractionId = $stateParams.attractionId;
 
     $scope.items = [
@@ -196,6 +196,29 @@ angular.module('starter.controllers', ['ionic.rating'])
       }else{
         return $rootScope.currentScenic['sid'];
       }
+    }
+
+    function getMap() {
+      //var city = $rootScope.currentScenic['city'];
+      var city = '九寨沟';
+      var map = new BMap.Map("BaiduMap");
+      var point = new BMap.Point(116.404, 39.915);
+      map.centerAndZoom(point, 15);
+      map.addControl(new BMap.NavigationControl());
+      map.addControl(new BMap.ScaleControl());
+      map.addControl(new BMap.OverviewMapControl());
+      map.addControl(new BMap.MapTypeControl());
+      // 创建地址解析器实例
+      var myGeo = new BMap.Geocoder();
+      // 将地址解析结果显示在地图上,并调整地图视野
+      myGeo.getPoint(city, function(point){
+        if (point) {
+          map.centerAndZoom(point, 16);
+          map.addOverlay(new BMap.Marker(point));
+        }else{
+          alert("您选择地址没有解析到结果!");
+        }
+      });
     }
 
     function getAnnouncements(page){
